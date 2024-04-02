@@ -14,7 +14,7 @@ void	*routine()
 int	main()
 {
 	pthread_t	t1, t2;
-	if (pthread_create(&t1, NULL, &routine, NULL) != 0)
+	if (pthread_create(&t1, NULL, &routine, NULL) != 0) // last argument here is what is passed into the routine function
 	{
 		return (1);
 	}
