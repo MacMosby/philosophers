@@ -11,7 +11,7 @@ void	*routine()
 	return (NULL);
 }
 
-int	main(int argc, char **argv)
+int	main()
 {
 	pthread_t	t1, t2;
 	if (pthread_create(&t1, NULL, &routine, NULL) != 0)
