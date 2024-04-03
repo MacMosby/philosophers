@@ -5,7 +5,7 @@
 
 void	*routine()
 {
-	printf("test\n");
+	printf("test new\n");
 	sleep(3);
 	printf("new line\n");
 	return (NULL);
