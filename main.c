@@ -42,11 +42,13 @@ void	*routine(void *arg)
 		printf("timestamp_in_ms %d has taken a fork\n", data->thread + 1);
 		printf("timestamp_in_ms %d is eating\n", data->thread + 1);
 		// let time to eat run
+		usleep(data->time_to_eat * 1000);
 		pthread_mutex_unlock(&data->forks[data->thread]);
 		pthread_mutex_unlock(&data->forks[data->thread + 1]); // need to adjust for philo with number num_philos
 		// SLEEPING
 		printf("timestamp_in_ms %d is sleeping\n", data->thread + 1);
 		// let time to sleep run
+		usleep(data->time_to_sleep * 1000);
 		// THINKING
 		printf("timestamp_in_ms %d is thinking\n", data->thread + 1);
 			// go back to eating asap
