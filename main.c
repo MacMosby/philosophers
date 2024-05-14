@@ -22,6 +22,11 @@
 	// gettimeofday
 	// pthread_detach
 
+// TO DO
+	// create array of timer variables - one per thread and put in the time when philo starts eating
+	// keep track of the times inside the main thread and check if the smallest time is out of range
+	// then call the philo dead and end the program
+
 #include "philosophers.h"
 
 void	*routine(void *arg)
