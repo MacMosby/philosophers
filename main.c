@@ -18,8 +18,6 @@
 // mallocs freen
 // how to track if someone starves and break the thread then without exit function ???
 
-// how to pass (several) arguments to routine ???
-
 #include "philosophers.h"
 
 void	*routine(void *arg)
@@ -30,8 +28,10 @@ void	*routine(void *arg)
 	// ROUTINE
 	// EAT, SLEEP, THINK - REPEAT
 		// until philos are full or one dies
-	sleep(1);
+
 	data = (t_data*)arg;
+	if (data->thread % 2 == 1)
+		usleep(data->time_to_eat / 2);
 	i = 0;
 	while (i < data->times_eating)
 	{
