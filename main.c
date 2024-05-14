@@ -22,22 +22,25 @@
 
 #include "philosophers.h"
 
-void	*routine(t_data *data)
+void	*routine(void *arg)
 {
+	t_data	*data = NULL;
 	int	i;
 
 	// ROUTINE
 	// EAT, SLEEP, THINK - REPEAT
 		// until philos are full or one dies
+	sleep(1);
+	data = (t_data*)arg;
 	i = 0;
-	while (i != data->times_eating)
+	while (i < data->times_eating)
 	{
 		// EATING
 		pthread_mutex_lock(&data->forks[data->thread]);
 		printf("timestamp_in_ms %d has taken a fork\n", data->thread + 1);
 		pthread_mutex_lock(&data->forks[data->thread + 1]); // need to adjust for philo with number num_philos
 		printf("timestamp_in_ms %d has taken a fork\n", data->thread + 1);
-		printf("timesta,p_in_ms %d is eating\n", data->thread + 1);
+		printf("timestamp_in_ms %d is eating\n", data->thread + 1);
 		// let time to eat run
 		pthread_mutex_unlock(&data->forks[data->thread]);
 		pthread_mutex_unlock(&data->forks[data->thread + 1]); // need to adjust for philo with number num_philos
@@ -47,6 +50,8 @@ void	*routine(t_data *data)
 		// THINKING
 		printf("timestamp_in_ms %d is thinking\n", data->thread + 1);
 			// go back to eating asap
+		/* printf("philo %d iteration number %d\n", data->thread, i + 1);
+		printf("num of philos: %d\n", data->thread); */
 		i++;
 	}
 	sleep(1);
@@ -54,6 +59,7 @@ void	*routine(t_data *data)
 	sleep(3);
 	printf("ending thread\n");
 	sleep(1);
+	//free(arg);
 	return (NULL);
 }
 
@@ -66,7 +72,12 @@ int	init_threads(t_data *data)
 	i = 0;
 	while (i < data->num_philos)
 	{
-		if (pthread_create(&data->threads[i], NULL, &routine, NULL) != 0)
+		t_data *args = malloc(sizeof(t_data));
+		*args = *data;
+		args->thread = i;
+		/* int *num = malloc(sizeof(int));
+		*num = i; */
+		if (pthread_create(&data->threads[i], NULL, &routine, args) != 0)
 			return (1);
 		printf("Thread %d started execution.\n", i + 1);
 		i++;
