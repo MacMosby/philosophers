@@ -29,6 +29,8 @@ typedef struct s_data
 	int		thread;
 	long int	secs;
 	long int	msecs;
+	long int	*eating_time;
+	int		full;
 	pthread_t	*threads;
 	pthread_mutex_t	*forks;
 }	t_data;
