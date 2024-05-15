@@ -23,11 +23,25 @@
 	// pthread_detach
 
 // TO DO
+	// timestamps
 	// create array of timer variables - one per thread and put in the time when philo starts eating
 	// keep track of the times inside the main thread and check if the smallest time is out of range
 	// then call the philo dead and end the program
 
 #include "philosophers.h"
+
+long int get_timestamp(t_data *data)
+{
+	struct timeval	t;
+	long int	secs;
+	long int	msecs;
+
+	gettimeofday(&t, NULL);
+	secs = t.tv_sec - data->secs;
+	msecs = t.tv_usec - data->msecs;
+	msecs += secs * 1000000;
+	return (msecs);
+}
 
 void	*routine(void *arg)
 {
@@ -41,16 +55,16 @@ void	*routine(void *arg)
 	while (i < data->times_eating)
 	{
 		pthread_mutex_lock(&data->forks[data->thread]);
-		printf("timestamp_in_ms %d has taken a fork\n", data->thread + 1);
+		printf("%ld %d has taken a fork\n", get_timestamp(data), data->thread + 1);
 		pthread_mutex_lock(&data->forks[data->thread + 1]); // need to adjust for philo with number num_philos
-		printf("timestamp_in_ms %d has taken a fork\n", data->thread + 1);
-		printf("timestamp_in_ms %d is eating\n", data->thread + 1);
+		printf("%ld %d has taken a fork\n", get_timestamp(data), data->thread + 1);
+		printf("%ld %d is eating\n", get_timestamp(data), data->thread + 1);
 		usleep(data->time_to_eat * 1000);
 		pthread_mutex_unlock(&data->forks[data->thread]);
 		pthread_mutex_unlock(&data->forks[data->thread + 1]); // need to adjust for philo with number num_philos
-		printf("timestamp_in_ms %d is sleeping\n", data->thread + 1);
+		printf("%ld %d is sleeping\n", get_timestamp(data), data->thread + 1);
 		usleep(data->time_to_sleep * 1000);
-		printf("timestamp_in_ms %d is thinking\n", data->thread + 1);
+		printf("%ld %d is thinking\n", get_timestamp(data), data->thread + 1);
 		i++;
 	}
 	//free(arg);
@@ -125,12 +139,16 @@ int	destroy_mutexes(t_data *data)
 
 int	philo(t_data *data)
 {
+	struct timeval	t;
 	if (data->num_philos == 1)
 		printf("only one philosopher - nothing's gonna happen\n");
 	else
 	{
 		// initialize forks/mutexes
 		init_mutexes(data);
+		gettimeofday(&t, NULL);
+		data->secs = t.tv_sec;
+		data->msecs = t.tv_usec;
 		// initialize threads
 		init_threads(data);
 		// join threads

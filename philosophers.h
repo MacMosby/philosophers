@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <sys/time.h>
 
 typedef struct s_data
 {
@@ -26,6 +27,8 @@ typedef struct s_data
 	int		time_to_sleep;
 	int		times_eating;
 	int		thread;
+	long int	secs;
+	long int	msecs;
 	pthread_t	*threads;
 	pthread_mutex_t	*forks;
 }	t_data;
