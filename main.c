@@ -14,16 +14,13 @@
 // mallocs protecten
 // mallocs freen
 // how to track if someone starves and break the thread then without exit function ???
-// timestamps !!!
 
 // FUNCTIONS NOT USED
 	// memset
 	// write
-	// gettimeofday
 	// pthread_detach
 
 // TO DO
-	// timestamps
 	// create array of timer variables - one per thread and put in the time when philo starts eating
 	// keep track of the times inside the main thread and check if the smallest time is out of range
 	// then call the philo dead and end the program
@@ -56,12 +53,12 @@ void	*routine(void *arg)
 	{
 		pthread_mutex_lock(&data->forks[data->thread]);
 		printf("%ld %d has taken a fork\n", get_timestamp(data), data->thread + 1);
-		pthread_mutex_lock(&data->forks[data->thread + 1]); // need to adjust for philo with number num_philos
+		pthread_mutex_lock(&data->forks[(data->thread + 1) % 8]); // need to adjust for philo with number num_philos
 		printf("%ld %d has taken a fork\n", get_timestamp(data), data->thread + 1);
 		printf("%ld %d is eating\n", get_timestamp(data), data->thread + 1);
 		usleep(data->time_to_eat * 1000);
 		pthread_mutex_unlock(&data->forks[data->thread]);
-		pthread_mutex_unlock(&data->forks[data->thread + 1]); // need to adjust for philo with number num_philos
+		pthread_mutex_unlock(&data->forks[(data->thread + 1) % 8]); // need to adjust for philo with number num_philos
 		printf("%ld %d is sleeping\n", get_timestamp(data), data->thread + 1);
 		usleep(data->time_to_sleep * 1000);
 		printf("%ld %d is thinking\n", get_timestamp(data), data->thread + 1);
