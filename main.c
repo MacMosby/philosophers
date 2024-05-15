@@ -20,10 +20,6 @@
 	// write
 	// pthread_detach
 
-// TO DO
-	// keep track of the times inside the main thread and check if the smallest time is out of range
-	// then call the philo dead and end the program
-
 #include "philosophers.h"
 
 long int get_timestamp(t_data *data)
@@ -161,7 +157,7 @@ int	check_philos_living(t_data *data)
 		while (i < data->num_philos)
 		{
 			t_diff = get_timestamp(data) - data->eating_time[i];
-			if (t_diff > 100)
+			if (t_diff > data->time_to_die * 1000 && data->full > 8)
 			{
 				printf("%ld %d died\n", get_timestamp(data), i + 1);
 				one_dead = 1;
@@ -189,6 +185,11 @@ int	philo(t_data *data)
 		if (check_philos_living(data) == 1)
 		{
 			// in case one dies I need to break all the other threads
+			return (0);
+		}
+		else
+		{
+			printf("everyone is full\n");
 			return (0);
 		}
 		join_threads(data);
