@@ -20,6 +20,8 @@
 	// write
 	// pthread_detach
 
+// when philo full, immediate break of thread, not after sleeping and think
+
 #include "philosophers.h"
 
 long int get_timestamp(t_data *data)
@@ -60,7 +62,10 @@ void	*routine(void *arg)
 		printf("%ld %d is thinking\n", get_timestamp(data), data->thread + 1);
 		i++;
 	}
-	data->full += 1;
+	pthread_mutex_lock(&data->full_philos[0]);
+	*data->full += 1;
+	pthread_mutex_unlock(&data->full_philos[0]);
+	printf("FULL: %d\n", *data->full);
 	//free(arg);
 	return (NULL);
 }
@@ -106,6 +111,8 @@ int	init_mutexes(t_data *data)
 {
 	int	i;
 
+	data->full_philos = malloc(sizeof(pthread_mutex_t));
+	pthread_mutex_init(&data->full_philos[0], NULL);
 	data->forks = malloc(data->num_philos * sizeof(pthread_mutex_t));
 	i = 0;
 	while (i < data->num_philos)
@@ -121,6 +128,7 @@ int	destroy_mutexes(t_data *data)
 {
 	int	i;
 
+	pthread_mutex_destroy(&data->full_philos[0]);
 	i = 0;
 	while (i < data->num_philos)
 	{
@@ -151,14 +159,15 @@ int	check_philos_living(t_data *data)
 	long int	t_diff;
 
 	one_dead = 0;
-	while (one_dead == 0 && data->full < 8)
+	while (one_dead == 0 && *data->full < data->num_philos)
 	{
 		i = 0;
 		while (i < data->num_philos)
 		{
 			t_diff = get_timestamp(data) - data->eating_time[i];
-			if (t_diff > data->time_to_die * 1000 && data->full > 8)
+			if (t_diff > data->time_to_die * 1000 && *data->full < data->num_philos)
 			{
+				printf("full philos: %d\n", *data->full);
 				printf("%ld %d died\n", get_timestamp(data), i + 1);
 				one_dead = 1;
 				return (1);
@@ -176,6 +185,8 @@ int	philo(t_data *data)
 		printf("only one philosopher - nothing's gonna happen\n");
 	else
 	{
+		data->full = malloc(sizeof(int));
+		*data->full = 0;
 		init_eating_times(data);
 		init_mutexes(data);
 		gettimeofday(&t, NULL);

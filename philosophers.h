@@ -30,9 +30,10 @@ typedef struct s_data
 	long int	secs;
 	long int	msecs;
 	long int	*eating_time;
-	int		full;
+	int		*full;
 	pthread_t	*threads;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t *full_philos;
 }	t_data;
 
 int	ft_atoi(const char *nptr);
