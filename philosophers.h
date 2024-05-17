@@ -37,5 +37,14 @@ typedef struct s_data
 }	t_data;
 
 int	ft_atoi(const char *nptr);
+long int get_timestamp(t_data *data);
+int	init_threads(t_data *data);
+int	join_threads(t_data *data);
+int	init_mutexes(t_data *data);
+int	destroy_mutexes(t_data *data);
+void	init_eating_times(t_data *data);
+int	check_philos_living(t_data *data);
+int	philo(t_data *data);
+void	*routine(void *arg);
 
 #endif

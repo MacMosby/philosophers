@@ -12,7 +12,9 @@
 
 NAME = philo
 
-SRC =	main.c ft_atoi.c
+SRC =	main.c philo.c ft_atoi.c get_timestamp.c init_threads.c join_threads.c \
+		init_mutexes.c destroy_mutexes.c init_eating_times.c \
+		check_philos_living.c routine.c
 
 OBJ = $(SRC:%.c=%.o)
 
