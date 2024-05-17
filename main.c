@@ -20,7 +20,7 @@
 	// write
 	// pthread_detach
 
-// when philo full, immediate break of thread, not after sleeping and think
+// when philo full, should they still go to sleep and think until all of them are full ???
 
 #include "philosophers.h"
 
@@ -57,14 +57,18 @@ void	*routine(void *arg)
 		usleep(data->time_to_eat * 1000);
 		pthread_mutex_unlock(&data->forks[data->thread]);
 		pthread_mutex_unlock(&data->forks[(data->thread + 1) % 8]);
+		if (i + 1 == data->times_eating)
+		{
+			pthread_mutex_lock(&data->full_philos[0]);
+			*data->full += 1;
+			pthread_mutex_unlock(&data->full_philos[0]);
+			return (NULL);
+		}
 		printf("%ld %d is sleeping\n", get_timestamp(data), data->thread + 1);
 		usleep(data->time_to_sleep * 1000);
 		printf("%ld %d is thinking\n", get_timestamp(data), data->thread + 1);
 		i++;
 	}
-	pthread_mutex_lock(&data->full_philos[0]);
-	*data->full += 1;
-	pthread_mutex_unlock(&data->full_philos[0]);
 	printf("FULL: %d\n", *data->full);
 	//free(arg);
 	return (NULL);
