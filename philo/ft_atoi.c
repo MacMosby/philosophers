@@ -1,40 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.h                                     :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrodenbu <mrodenbu@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/17 15:50:20 by mrodenbu          #+#    #+#             */
-/*   Updated: 2024/08/17 15:50:22 by mrodenbu         ###   ########.fr       */
+/*   Created: 2024/08/17 17:25:50 by mrodenbu          #+#    #+#             */
+/*   Updated: 2024/08/17 17:25:52 by mrodenbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILOSOPHERS_H
-# define PHILOSOPHERS_H
+#include "philosophers.h"
 
-// LIBRARIES
-# include <stdlib.h>
-# include <stdio.h>
-//# include <unistd.h>
-# include <pthread.h>
-
-// FUNCTIONS
-// ft_atoi.c
-int	ft_atoi(const char *s);
-
-//STRUCTS
-
-typedef struct s_data
+int	ft_atoi(const char *s)
 {
-	int		ac;
-	char	**av;
-	int		num_of_philos;
-	int		time_to_die;
-	int		time_to_eat;
-	int		time_to_sleep;
-	int		num_of_must_eats;
-}	t_data;
+	int	i;
+	int	res;
+	int	minus;
 
-
-#endif
+	i = 0;
+	res = 0;
+	minus = 0;
+	while ((s[i] > 8 && s[i] < 14) || s[i] == 32)
+		i++;
+	if (s[i] == 45)
+	{
+		minus = 1;
+		i++;
+	}
+	else if (s[i] == 43)
+		i++;
+	while (s[i] > 47 && s[i] < 58)
+	{
+		res *= 10;
+		res += (int)s[i] - 48;
+		i++;
+	}
+	if (minus % 2 == 1)
+		res *= (-1);
+	return (res);
+}

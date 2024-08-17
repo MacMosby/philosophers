@@ -12,7 +12,7 @@
 
 NAME := philo
 
-SRC := main.c
+SRC := main.c ft_atoi.c
 
 OBJ := $(SRC:%.c=%.o)
 
@@ -20,10 +20,12 @@ CC := cc
 
 CFLAGS := -Wall -Werror -Wextra
 
+LINK_OPTION := -pthread
+
 all:	$(NAME)
 
 $(NAME):	$(OBJ)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
+	$(CC) $(CFLAGS) $(LINK_OPTION) -o $(NAME) $(OBJ)
 
 clean:
 	rm -f *.o
