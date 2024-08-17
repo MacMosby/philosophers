@@ -18,4 +18,5 @@ int	main(int argc, char **argv)
 
 	data.ac = argc;
 	data.av = argv;
+	return (0);
 }

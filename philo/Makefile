@@ -1,0 +1,36 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mrodenbu <mrodenbu@student.42berlin.d      +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/08/17 15:55:48 by mrodenbu          #+#    #+#              #
+#    Updated: 2024/08/17 15:55:50 by mrodenbu         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME := philo
+
+SRC := main.c
+
+OBJ := $(SRC:%.c=%.o)
+
+CC := cc
+
+CFLAGS := -Wall -Werror -Wextra
+
+all:	$(NAME)
+
+$(NAME):	$(OBJ)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
+
+clean:
+	rm -f *.o
+
+fclean:	clean
+	rm -f $(NAME)
+
+re:	fclean all
+
+.PHONY: all clean fclean re

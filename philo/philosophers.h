@@ -16,7 +16,7 @@
 typedef struct s_data
 {
 	int	ac;
-	char	*av;
+	char	**av;
 }	t_data;
 
 
