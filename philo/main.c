@@ -10,4 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "philosophers.h"
 
+int	main(int argc, char **argv)
+{
+	t_data	data;
+
+	data.ac = argc;
+	data.av = argv;
+}
