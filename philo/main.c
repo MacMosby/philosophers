@@ -13,8 +13,8 @@
 #include "philosophers.h"
 
 // WHAT I NEED ???
-// array of threads
-// array of mutexes for forks
+// array of threads - num of philos
+// array of mutexes for forks - num of philos
 // one mutex for print statements to not mix them up
 // observe things from main thread ???
 
