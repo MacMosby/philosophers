@@ -12,7 +12,7 @@
 
 NAME := philo
 
-SRC := main.c ft_atoi.c
+SRC := main.c clean_data.c ft_atoi.c init_data.c routine.c
 
 OBJ := $(SRC:%.c=%.o)
 
