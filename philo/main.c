@@ -25,7 +25,7 @@ void	create_threads(t_data *data)
 	i = 0;
 	while (i < data->num_of_philos)
 	{
-		if (pthread_create(&data->threads[i], NULL, &routine, NULL) != 0)
+		if (pthread_create(data->philos[i]->thread, NULL, &routine, NULL) != 0)
 			exit(2);
 		printf("Thread %d started execution.\n", i + 1);
 		i++;
@@ -39,7 +39,7 @@ void	join_threads(t_data *data)
 	i = 0;
 	while (i < data->num_of_philos)
 	{
-		if (pthread_join(data->threads[i], NULL) != 0)
+		if (pthread_join(*(data->philos[i]->thread), NULL) != 0)
 			exit(3);
 		printf("Thread %d finished execution.\n", i + 1);
 		i++;
@@ -57,7 +57,7 @@ int	main(int argc, char **argv)
 		init_data(&data);
 		create_threads(&data);
 		join_threads(&data);
-		clean_data(&data);
+		//clean_data(&data);
 	}
 	else
 		printf("Wrong number of arguments - Byyyyyyyyeeeeeee!\n");

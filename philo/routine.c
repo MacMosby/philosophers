@@ -25,10 +25,11 @@ void	*routine(void *arg)
 	t_philo *philo;
 
 	philo = (t_philo *)arg;
+	printf("TEST\n");
 	// while condition needs to be changed
 	// as long as all philos alive and this one not full yet
 	//while (philo->times_eaten != philo->data->num_of_must_eats && philo->alive)
-	while (1)
+	/* while (1)
 	{
 		// pick up first fork available
 		pthread_mutex_lock(&philo->data->forks[philo->index]);
@@ -48,6 +49,6 @@ void	*routine(void *arg)
 		usleep(philo->data->time_to_sleep * 1000);
 		// think for only one moment and repeat the routine
 		print_log(philo, THINK);
-	}
+	} */
 	return (NULL);
 }

@@ -38,8 +38,7 @@ typedef struct s_data
 	int		time_to_eat;
 	int		time_to_sleep;
 	int		num_of_must_eats;
-	struct s_philo *philos;
-	pthread_t *threads;
+	struct s_philo **philos;
 	pthread_mutex_t *forks;
 	pthread_mutex_t	*logs;
 	pthread_mutex_t *full_philos;
@@ -53,8 +52,8 @@ typedef struct s_philo
 	int	full;
 	int	times_eaten;
 	long int	eating_time;
+	pthread_t	*thread;
 	t_data	*data;
-	pthread_t	thread;
 }	t_philo;
 
 // FUNCTIONS
