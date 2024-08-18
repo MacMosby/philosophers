@@ -25,7 +25,7 @@ void	*routine(void *arg)
 	t_philo *philo;
 
 	philo = (t_philo *)arg;
-	printf("TEST\n");
+	printf("TEST because no philo passed yet\n");
 	// while condition needs to be changed
 	// as long as all philos alive and this one not full yet
 	//while (philo->times_eaten != philo->data->num_of_must_eats && philo->alive)
