@@ -35,7 +35,7 @@ void	destroy_logs_mutex(t_data *data)
 void	destroy_full_philos_mutex(t_data *data)
 {
 	// need to free ???
-	pthread_mutex_destroy(&data->full_philos[0]);
+	pthread_mutex_destroy(&data->full_philos_mutex[0]);
 }
 
 void	destroy_mutexes(t_data *data)

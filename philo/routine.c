@@ -42,11 +42,20 @@ void	*routine(void *arg)
 		print_log(philo, EAT);
 		usleep(philo->data->time_to_eat * 1000);
 		philo->times_eaten++;
+		if (philo->times_eaten != philo->data->num_of_must_eats)
+			// sleep for x milliseconds
+			print_log(philo, SLEEP);
 		// put down both forks
 		pthread_mutex_unlock(&philo->data->forks[philo->index]);
 		pthread_mutex_unlock(&philo->data->forks[(philo->index + 1) % 8]);
+		if (philo->times_eaten == philo->data->num_of_must_eats)
+		{
+			pthread_mutex_lock(philo->data->full_philos_mutex);
+			philo->data->full_philos += 1;
+			pthread_mutex_unlock(philo->data->full_philos_mutex);
+			break;
+		}
 		// sleep for x milliseconds
-		print_log(philo, SLEEP);
 		usleep(philo->data->time_to_sleep * 1000);
 		// think for only one moment and repeat the routine
 		print_log(philo, THINK);

@@ -14,8 +14,6 @@
 
 void	set_input(t_data *data)
 {
-	int	i;
-
 	data->num_of_philos = ft_atoi(data->av[1]);
 	if (data->num_of_philos < 2)
 	{
@@ -30,13 +28,6 @@ void	set_input(t_data *data)
 		data->num_of_must_eats = ft_atoi(data->av[5]);
 	else
 		data->num_of_must_eats = -1;
-	data->full = malloc(data->num_of_philos * sizeof(int));
-	i = 0;
-	while (i < data->num_of_philos)
-	{
-		data->full[i] = 0;
-		i++;
-	}
 }
 
 void	init_philos(t_data *data)
@@ -91,11 +82,11 @@ void	init_logs_mutex(t_data *data)
 
 void	init_full_philos_mutex(t_data *data)
 {
-	data->full_philos = malloc(sizeof(pthread_mutex_t));
-	if (!data->full_philos)
+	data->full_philos_mutex = malloc(sizeof(pthread_mutex_t));
+	if (!data->full_philos_mutex)
 		// EXIT HANDLE
 		exit(1);
-	pthread_mutex_init(&data->full_philos[0], NULL);
+	pthread_mutex_init(&data->full_philos_mutex[0], NULL);
 }
 
 void	init_mutexes(t_data *data)
@@ -108,6 +99,7 @@ void	init_mutexes(t_data *data)
 void	init_data(t_data *data)
 {
 	set_input(data);
+	data->full_philos = 0;
 	init_philos(data);
 	init_mutexes(data);
 }

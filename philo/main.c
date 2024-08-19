@@ -53,6 +53,12 @@ int	main(int argc, char **argv)
 		init_data(&data);
 		set_start_time(&data);
 		create_threads(&data);
+		while (1)
+		{
+			// if one dies, stop all threads and break the loop
+			if (data.full_philos == data.num_of_philos)
+				break;
+		}
 		join_threads(&data);
 		//clean_data(&data);
 	}
