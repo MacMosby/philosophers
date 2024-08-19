@@ -12,8 +12,6 @@
 
 #include "philosophers.h"
 
-// observe things from main thread ???
-
 void	create_threads(t_data *data)
 {
 	int	i;
@@ -45,6 +43,7 @@ void	join_threads(t_data *data)
 int	main(int argc, char **argv)
 {
 	t_data	data;
+	int		i;
 
 	data.ac = argc;
 	data.av = argv;
@@ -55,7 +54,18 @@ int	main(int argc, char **argv)
 		create_threads(&data);
 		while (1)
 		{
+			i = 0;
 			// if one dies, stop all threads and break the loop
+			while (i < data.num_of_philos)
+			{
+				if (!data.philos[i]->alive)
+				{
+					print_log(data.philos[i], DIED);
+					break;
+				}
+				i++;
+			}
+			// if all philos are full break out of the loop and exit clean (return(0);)
 			if (data.full_philos == data.num_of_philos)
 				break;
 		}

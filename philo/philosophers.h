@@ -74,6 +74,7 @@ long int get_timestamp(t_data *data);
 void	init_data(t_data *data);
 
 // routine.c
+void	print_log(t_philo *philo, char *s);
 void	*routine(void *arg);
 
 // set_start_time.c
