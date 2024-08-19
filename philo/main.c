@@ -13,10 +13,12 @@
 #include "philosophers.h"
 
 // WHAT I NEED ???
-// array of threads - num of philos
+// array of threads - num of philos ??? NO, an array of philos with one thread inside of the philo
 // array of mutexes for forks - num of philos
 // one mutex for print statements to not mix them up
 // observe things from main thread ???
+// mutex for get_timestamp ???
+// array "full" with 1 slot per philo ???
 
 void	create_threads(t_data *data)
 {
