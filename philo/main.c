@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+TO DO
+- run check inside routine if philo dies and set flag alive to 0
+*/
+
 #include "philosophers.h"
 
 void	create_threads(t_data *data)
@@ -40,6 +45,21 @@ void	join_threads(t_data *data)
 	}
 }
 
+int	someone_dead(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->num_of_philos)
+	{
+		if (get_timestamp(data) - data->philos[i]->eating_time > data->time_to_die)
+		{
+			print_log(data->philos[i], DIED);
+			i++;
+		}
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -56,15 +76,8 @@ int	main(int argc, char **argv)
 		{
 			i = 0;
 			// if one dies, stop all threads and break the loop
-			while (i < data.num_of_philos)
-			{
-				if (!data.philos[i]->alive)
-				{
-					print_log(data.philos[i], DIED);
-					break;
-				}
-				i++;
-			}
+			if (someone_dead(&data))
+				break;
 			// if all philos are full break out of the loop and exit clean (return(0);)
 			if (data.full_philos == data.num_of_philos)
 				break;
