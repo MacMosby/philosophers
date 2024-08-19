@@ -16,7 +16,7 @@ void	print_log(t_philo *philo, char *s)
 {
 	pthread_mutex_lock(philo->data->logs);
 	// print log
-	printf("TIME_STAMP %d %s\n", philo->number, s);
+	printf("%ld %d %s\n", get_timestamp(philo->data),philo->number, s);
 	pthread_mutex_unlock(philo->data->logs);
 }
 

@@ -12,9 +12,7 @@
 
 #include "philosophers.h"
 
-// array of threads - num of philos ??? NO, an array of philos with one thread inside of the philo
 // observe things from main thread ???
-// mutex for get_timestamp ???
 
 void	create_threads(t_data *data)
 {
@@ -53,6 +51,7 @@ int	main(int argc, char **argv)
 	if (argc == 5 || argc == 6)
 	{
 		init_data(&data);
+		set_start_time(&data);
 		create_threads(&data);
 		join_threads(&data);
 		//clean_data(&data);

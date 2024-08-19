@@ -39,6 +39,8 @@ typedef struct s_data
 	int		time_to_sleep;
 	int		num_of_must_eats;
 	int		*full;
+	long int	secs;
+	long int	msecs;
 	struct s_philo **philos;
 	pthread_mutex_t *forks;
 	pthread_mutex_t	*logs;
@@ -65,10 +67,16 @@ void	clean_data(t_data *data);
 // ft_atoi.c
 int		ft_atoi(const char *s);
 
+// get_timestamp.c
+long int get_timestamp(t_data *data);
+
 // init_data.c
 void	init_data(t_data *data);
 
 // routine.c
 void	*routine(void *arg);
+
+// set_start_time.c
+void	set_start_time(t_data *data);
 
 #endif

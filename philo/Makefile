@@ -12,7 +12,8 @@
 
 NAME := philo
 
-SRC := main.c clean_data.c ft_atoi.c init_data.c routine.c
+SRC := main.c clean_data.c ft_atoi.c get_timestamp.c init_data.c routine.c \
+		set_start_time.c
 
 OBJ := $(SRC:%.c=%.o)
 
