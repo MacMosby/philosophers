@@ -14,6 +14,8 @@
 
 void	set_input(t_data *data)
 {
+	int	i;
+
 	data->num_of_philos = ft_atoi(data->av[1]);
 	if (data->num_of_philos < 2)
 	{
@@ -28,6 +30,13 @@ void	set_input(t_data *data)
 		data->num_of_must_eats = ft_atoi(data->av[5]);
 	else
 		data->num_of_must_eats = -1;
+	data->full = malloc(data->num_of_philos * sizeof(int));
+	i = 0;
+	while (i < data->num_of_philos)
+	{
+		data->full[i] = 0;
+		i++;
+	}
 }
 
 void	init_philos(t_data *data)
