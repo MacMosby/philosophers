@@ -44,7 +44,6 @@ void	init_philos(t_data *data)
 		data->philos[i] = malloc(sizeof(t_philo));
 		data->philos[i]->index = i;
 		data->philos[i]->number = i + 1;
-		data->philos[i]->alive = 1;
 		data->philos[i]->full = 0;
 		data->philos[i]->times_eaten = 0;
 		data->philos[i]->eating_time = 0;
@@ -54,52 +53,13 @@ void	init_philos(t_data *data)
 	}
 }
 
-void	init_forks(t_data *data)
-{
-	int	i;
-
-	data->forks = malloc(data->num_of_philos * sizeof(pthread_mutex_t));
-	if (!data->forks)
-		// EXIT HANDLE
-		exit(1);
-	i = 0;
-	while (i < data->num_of_philos)
-	{
-		pthread_mutex_init(&data->forks[i], NULL);
-		printf("mutex %d initialized\n", i + 1);
-		i++;
-	}
-}
-
-void	init_logs_mutex(t_data *data)
-{
-	data->logs = malloc(sizeof(pthread_mutex_t));
-	if (!data->logs)
-		// EXIT HANDLE
-		exit(1);
-	pthread_mutex_init(&data->logs[0], NULL);
-}
-
-void	init_full_philos_mutex(t_data *data)
-{
-	data->full_philos_mutex = malloc(sizeof(pthread_mutex_t));
-	if (!data->full_philos_mutex)
-		// EXIT HANDLE
-		exit(1);
-	pthread_mutex_init(&data->full_philos_mutex[0], NULL);
-}
-
-void	init_mutexes(t_data *data)
-{
-	init_forks(data);
-	init_logs_mutex(data);
-	init_full_philos_mutex(data);
-}
-
 void	init_data(t_data *data)
 {
 	set_input(data);
 	data->full_philos = 0;
+	data->dead = 0;
+	data->secs = 0;
+	data->msecs = 0;
 	init_philos(data);
 	init_mutexes(data);
 }

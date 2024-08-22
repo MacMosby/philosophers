@@ -1,33 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_data.c                                       :+:      :+:    :+:   */
+/*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrodenbu <mrodenbu@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/18 12:10:31 by mrodenbu          #+#    #+#             */
-/*   Updated: 2024/08/18 12:10:32 by mrodenbu         ###   ########.fr       */
+/*   Created: 2024/08/21 14:22:30 by mrodenbu          #+#    #+#             */
+/*   Updated: 2024/08/21 14:22:31 by mrodenbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	clean_philos(t_data *data)
+void	create_threads(t_data *data)
 {
 	int	i;
 
 	i = 0;
 	while (i < data->num_of_philos)
 	{
-		free(data->philos[i]->thread);
-		free(data->philos[i]);
+		if (pthread_create(data->philos[i]->thread, NULL, &routine, data->philos[i]) != 0)
+			// EXIT HANDLE
+			exit(2);
+		printf("%ld Thread %d started execution.\n", get_timestamp(data),i + 1);
 		i++;
 	}
-	free(data->philos);
 }
 
-void	clean_data(t_data *data)
+void	join_threads(t_data *data)
 {
-	destroy_mutexes(data);
-	clean_philos(data);
+	int	i;
+
+	i = 0;
+	while (i < data->num_of_philos)
+	{
+		if (pthread_join(*(data->philos[i]->thread), NULL) != 0)
+			exit(3);
+		//printf("%ld Thread %d finished execution.\n", get_timestamp(data),i + 1);
+		i++;
+	}
 }

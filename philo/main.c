@@ -17,34 +17,6 @@ TO DO
 
 #include "philosophers.h"
 
-void	create_threads(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < data->num_of_philos)
-	{
-		if (pthread_create(data->philos[i]->thread, NULL, &routine, data->philos[i]) != 0)
-			exit(2);
-		printf("Thread %d started execution.\n", i + 1);
-		i++;
-	}
-}
-
-void	join_threads(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < data->num_of_philos)
-	{
-		if (pthread_join(*(data->philos[i]->thread), NULL) != 0)
-			exit(3);
-		printf("Thread %d finished execution.\n", i + 1);
-		i++;
-	}
-}
-
 int	someone_dead(t_data *data)
 {
 	int	i;
@@ -54,16 +26,25 @@ int	someone_dead(t_data *data)
 	{
 		if (get_timestamp(data) - data->philos[i]->eating_time > data->time_to_die)
 		{
-			print_log(data->philos[i], DIED);
+			pthread_mutex_lock(data->dead_mutex);
+			if (data->dead == 0)
+			{
+				print_log(data->philos[i], DIED);
+				data->dead = 1;
+				pthread_mutex_unlock(data->dead_mutex);
+				return (1);
+			}
+			else
+				pthread_mutex_unlock(data->dead_mutex);
 			i++;
 		}
 	}
+	return (0);
 }
 
 int	main(int argc, char **argv)
 {
 	t_data	data;
-	int		i;
 
 	data.ac = argc;
 	data.av = argv;
@@ -74,16 +55,16 @@ int	main(int argc, char **argv)
 		create_threads(&data);
 		while (1)
 		{
-			i = 0;
 			// if one dies, stop all threads and break the loop
-			if (someone_dead(&data))
+			if (/* someone_dead(&data) ||  */check_status(&data) == 0)
+			{
+				printf("WHATEVER\n");
 				break;
-			// if all philos are full break out of the loop and exit clean (return(0);)
-			if (data.full_philos == data.num_of_philos)
-				break;
+			}
 		}
+		printf("WE'RE DONE!!!\n");
 		join_threads(&data);
-		//clean_data(&data);
+		clean_data(&data);
 	}
 	else
 		printf("Wrong number of arguments - Byyyyyyyyeeeeeee!\n");

@@ -39,19 +39,20 @@ typedef struct s_data
 	int		time_to_sleep;
 	int		num_of_must_eats;
 	int		full_philos;
+	int		dead;
 	long int	secs;
 	long int	msecs;
 	struct s_philo **philos;
 	pthread_mutex_t *forks;
 	pthread_mutex_t	*logs;
 	pthread_mutex_t *full_philos_mutex;
+	pthread_mutex_t *dead_mutex;
 }	t_data;
 
 typedef struct s_philo
 {
 	int	index;
 	int	number;
-	int	alive;
 	int	full;
 	int	times_eaten;
 	long int	eating_time;
@@ -61,8 +62,14 @@ typedef struct s_philo
 
 // FUNCTIONS
 
+// check_status.c
+int	check_status(t_data *data);
+
 // clean_data.c
 void	clean_data(t_data *data);
+
+// destroy_mutexes.c
+void	destroy_mutexes(t_data *data);
 
 // ft_atoi.c
 int		ft_atoi(const char *s);
@@ -73,11 +80,18 @@ long int get_timestamp(t_data *data);
 // init_data.c
 void	init_data(t_data *data);
 
+// init_mutexes.c
+void	init_mutexes(t_data *data);
+
 // routine.c
 void	print_log(t_philo *philo, char *s);
 void	*routine(void *arg);
 
 // set_start_time.c
 void	set_start_time(t_data *data);
+
+// threads.c
+void	create_threads(t_data *data);
+void	join_threads(t_data *data);
 
 #endif
