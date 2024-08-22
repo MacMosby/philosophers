@@ -12,8 +12,8 @@
 
 NAME := philo
 
-SRC := check_status.c clean_data.c destroy_mutexes.c ft_atoi.c get_timestamp.c \
-		init_data.c init_mutexes.c main.c routine.c \
+SRC := check_status.c clean_data.c destroy_mutexes.c ft_atoi.c ft_strncmp.c \
+		get_timestamp.c init_data.c init_mutexes.c main.c routine.c \
 		set_start_time.c threads.c
 
 OBJ := $(SRC:%.c=%.o)

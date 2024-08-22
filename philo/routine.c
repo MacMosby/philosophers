@@ -14,10 +14,15 @@
 
 void	print_log(t_philo *philo, char *s)
 {
+	long int	time_stamp;
+
 	pthread_mutex_lock(philo->data->logs);
 	if (check_status(philo->data))
 	{
-		printf("%ld %d %s\n", get_timestamp(philo->data),philo->number, s);
+		time_stamp = get_timestamp(philo->data);
+		if (ft_strncmp(s, EAT, 9) == 0)
+			philo->eating_time = get_timestamp(philo->data);
+		printf("%ld %d %s\n", time_stamp, philo->number, s);
 		pthread_mutex_unlock(philo->data->logs);
 	}
 	else
@@ -79,8 +84,8 @@ void	*routine(void *arg)
 		{
 			pthread_mutex_lock(philo->data->full_philos_mutex);
 			philo->data->full_philos += 1;
-			printf("Philo %d is full\n", philo->number);
-			printf("%d philos are full\n", philo->data->full_philos);
+			//printf("Philo %d is full\n", philo->number);
+			//printf("%d philos are full\n", philo->data->full_philos);
 			pthread_mutex_unlock(philo->data->full_philos_mutex);
 		}
 		ft_sleep(philo);

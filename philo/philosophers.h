@@ -74,6 +74,9 @@ void	destroy_mutexes(t_data *data);
 // ft_atoi.c
 int		ft_atoi(const char *s);
 
+// ft_strncmp.c
+int	ft_strncmp(const char *s1, const char *s2, size_t n);
+
 // get_timestamp.c
 long int get_timestamp(t_data *data);
 

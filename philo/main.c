@@ -20,18 +20,21 @@ TO DO
 int	someone_dead(t_data *data)
 {
 	int	i;
+	long int	time_passed;
 
 	i = 0;
 	while (i < data->num_of_philos)
 	{
-		if (get_timestamp(data) - data->philos[i]->eating_time > data->time_to_die)
+		time_passed = get_timestamp(data) - data->philos[i]->eating_time;
+		if (time_passed > data->time_to_die * 1000)
 		{
 			pthread_mutex_lock(data->dead_mutex);
 			if (data->dead == 0)
 			{
-				print_log(data->philos[i], DIED);
+				printf("%ld %d %s\n", get_timestamp(data), data->philos[i]->number, DIED);
 				data->dead = 1;
 				pthread_mutex_unlock(data->dead_mutex);
+
 				return (1);
 			}
 			else
@@ -58,11 +61,9 @@ int	main(int argc, char **argv)
 			// if one dies, stop all threads and break the loop
 			if (someone_dead(&data) || check_status(&data) == 0)
 			{
-				printf("WHATEVER\n");
 				break;
 			}
 		}
-		printf("WE'RE DONE!!!\n");
 		join_threads(&data);
 		clean_data(&data);
 	}
