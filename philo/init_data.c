@@ -18,7 +18,6 @@ void	set_input(t_data *data)
 	if (data->num_of_philos < 2)
 	{
 		printf("At least two philosophers are needed.\n");
-		// EXIT HANDLE
 		exit(1);
 	}
 	data->time_to_die = ft_atoi(data->av[2]);
@@ -36,7 +35,6 @@ void	init_philos(t_data *data)
 
 	data->philos = malloc(data->num_of_philos * sizeof(t_philo *));
 	if (!data->philos)
-		// EXIT HANDLE
 		exit(1);
 	i = 0;
 	while (i < data->num_of_philos)

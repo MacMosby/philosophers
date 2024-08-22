@@ -18,13 +18,12 @@ void	init_forks(t_data *data)
 
 	data->forks = malloc(data->num_of_philos * sizeof(pthread_mutex_t));
 	if (!data->forks)
-		// EXIT HANDLE
 		exit(1);
 	i = 0;
 	while (i < data->num_of_philos)
 	{
 		pthread_mutex_init(&data->forks[i], NULL);
-		printf("%ld mutex %d initialized\n", get_timestamp(data),i + 1);
+		printf("%ld mutex %d initialized\n", get_timestamp(data), i + 1);
 		i++;
 	}
 }
@@ -33,7 +32,6 @@ void	init_logs_mutex(t_data *data)
 {
 	data->logs = malloc(sizeof(pthread_mutex_t));
 	if (!data->logs)
-		// EXIT HANDLE
 		exit(1);
 	pthread_mutex_init(&data->logs[0], NULL);
 }
@@ -42,7 +40,6 @@ void	init_full_philos_mutex(t_data *data)
 {
 	data->full_philos_mutex = malloc(sizeof(pthread_mutex_t));
 	if (!data->full_philos_mutex)
-		// EXIT HANDLE
 		exit(1);
 	pthread_mutex_init(&data->full_philos_mutex[0], NULL);
 }
@@ -51,7 +48,6 @@ void	init_dead_mutex(t_data *data)
 {
 	data->dead_mutex = malloc(sizeof(pthread_mutex_t));
 	if (!data->dead_mutex)
-		// EXIT HANDLE
 		exit(1);
 	pthread_mutex_init(&data->dead_mutex[0], NULL);
 }

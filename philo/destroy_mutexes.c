@@ -14,14 +14,12 @@
 
 void	destroy_forks(t_data *data)
 {
-	// need to free ???
 	int	i;
 
 	i = 0;
 	while (i < data->num_of_philos)
 	{
 		pthread_mutex_destroy(&data->forks[i]);
-		//printf("%ld mutex %d destroyed\n", get_timestamp(data), i + 1);
 		i++;
 	}
 	free(data->forks);
@@ -29,21 +27,18 @@ void	destroy_forks(t_data *data)
 
 void	destroy_logs_mutex(t_data *data)
 {
-	// need to free ???
 	pthread_mutex_destroy(&data->logs[0]);
 	free(data->logs);
 }
 
 void	destroy_full_philos_mutex(t_data *data)
 {
-	// need to free ???
 	pthread_mutex_destroy(&data->full_philos_mutex[0]);
 	free(data->full_philos_mutex);
 }
 
 void	destroy_dead_mutex(t_data *data)
 {
-	// need to free ???
 	pthread_mutex_destroy(&data->dead_mutex[0]);
 	free(data->dead_mutex);
 }

@@ -29,7 +29,6 @@ int	check_all_full(t_data *data)
 	pthread_mutex_lock(data->full_philos_mutex);
 	if (data->full_philos == data->num_of_philos)
 	{
-		//printf("TESTETSTETSTETST\n");
 		pthread_mutex_unlock(data->full_philos_mutex);
 		return (1);
 	}

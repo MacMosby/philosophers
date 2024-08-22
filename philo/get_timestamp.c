@@ -12,11 +12,11 @@
 
 #include "philosophers.h"
 
-long int get_timestamp(t_data *data)
+long int	get_timestamp(t_data *data)
 {
 	struct timeval	t;
-	long int	secs;
-	long int	msecs;
+	long int		secs;
+	long int		msecs;
 
 	gettimeofday(&t, NULL);
 	secs = t.tv_sec - data->secs;

@@ -12,14 +12,14 @@
 
 /*
 TO DO
-- run check inside routine if philo dies and set flag alive to 0
+- comment on every function
 */
 
 #include "philosophers.h"
 
 int	someone_dead(t_data *data)
 {
-	int	i;
+	int			i;
 	long int	time_passed;
 
 	i = 0;
@@ -31,10 +31,10 @@ int	someone_dead(t_data *data)
 			pthread_mutex_lock(data->dead_mutex);
 			if (data->dead == 0)
 			{
-				printf("%ld %d %s\n", get_timestamp(data), data->philos[i]->number, DIED);
+				printf("%ld %d %s\n", get_timestamp(data),
+					data->philos[i]->number, DIED);
 				data->dead = 1;
 				pthread_mutex_unlock(data->dead_mutex);
-
 				return (1);
 			}
 			else
@@ -58,10 +58,9 @@ int	main(int argc, char **argv)
 		create_threads(&data);
 		while (1)
 		{
-			// if one dies, stop all threads and break the loop
 			if (someone_dead(&data) || check_status(&data) == 0)
 			{
-				break;
+				break ;
 			}
 		}
 		join_threads(&data);
