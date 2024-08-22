@@ -12,39 +12,15 @@
 
 /*
 TO DO
-- comment on every function
+- what to do in all exit cases like malloc protects ???
+	init philos and init mutexes still missing
+- check for data races and race conditions --> helgrind
 */
 
 #include "philosophers.h"
 
-int	someone_dead(t_data *data)
-{
-	int			i;
-	long int	time_passed;
-
-	i = 0;
-	while (i < data->num_of_philos)
-	{
-		time_passed = get_timestamp(data) - data->philos[i]->eating_time;
-		if (time_passed > data->time_to_die * 1000)
-		{
-			pthread_mutex_lock(data->dead_mutex);
-			if (data->dead == 0)
-			{
-				printf("%ld %d %s\n", get_timestamp(data),
-					data->philos[i]->number, DIED);
-				data->dead = 1;
-				pthread_mutex_unlock(data->dead_mutex);
-				return (1);
-			}
-			else
-				pthread_mutex_unlock(data->dead_mutex);
-		}
-		i++;
-	}
-	return (0);
-}
-
+/* checks number of passed arguments and monitors the running simulation for
+a philosopher dying and philosophers being full */
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -58,7 +34,7 @@ int	main(int argc, char **argv)
 		create_threads(&data);
 		while (1)
 		{
-			if (someone_dead(&data) || check_status(&data) == 0)
+			if (dead_check(&data) || check_status(&data) == 0)
 			{
 				break ;
 			}

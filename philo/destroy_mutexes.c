@@ -12,6 +12,7 @@
 
 #include "philosophers.h"
 
+/* destroys all fork mutexes and frees the allocated memory */
 void	destroy_forks(t_data *data)
 {
 	int	i;
@@ -25,24 +26,29 @@ void	destroy_forks(t_data *data)
 	free(data->forks);
 }
 
+/* destroys the mutex for the printing function & frees the allocated memory */
 void	destroy_logs_mutex(t_data *data)
 {
 	pthread_mutex_destroy(&data->logs[0]);
 	free(data->logs);
 }
 
+/* destroys the mutex to count full philosophers & frees the allocated memory */
 void	destroy_full_philos_mutex(t_data *data)
 {
 	pthread_mutex_destroy(&data->full_philos_mutex[0]);
 	free(data->full_philos_mutex);
 }
 
+/* destroys the mutex to indicate the death of a philosopher & frees the
+allocated memory */
 void	destroy_dead_mutex(t_data *data)
 {
 	pthread_mutex_destroy(&data->dead_mutex[0]);
 	free(data->dead_mutex);
 }
 
+/* destroy all mutexes by calling several destroy_mutex functions */
 void	destroy_mutexes(t_data *data)
 {
 	destroy_forks(data);

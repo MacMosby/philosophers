@@ -12,6 +12,7 @@
 
 #include "philosophers.h"
 
+/* assigns the passed arguments to the data struct by using ft_atoi */
 void	set_input(t_data *data)
 {
 	data->num_of_philos = ft_atoi(data->av[1]);
@@ -29,6 +30,7 @@ void	set_input(t_data *data)
 		data->num_of_must_eats = -1;
 }
 
+/* initializes the memory and values for each philosopher */
 void	init_philos(t_data *data)
 {
 	int	i;
@@ -40,17 +42,22 @@ void	init_philos(t_data *data)
 	while (i < data->num_of_philos)
 	{
 		data->philos[i] = malloc(sizeof(t_philo));
+		if (!data->philos[i])
+			exit(2);
 		data->philos[i]->index = i;
 		data->philos[i]->number = i + 1;
 		data->philos[i]->full = 0;
 		data->philos[i]->times_eaten = 0;
 		data->philos[i]->eating_time = 0;
 		data->philos[i]->thread = malloc(sizeof(pthread_t));
+		if (!data->philos[i]->thread)
+			exit(3);
 		data->philos[i]->data = data;
 		i++;
 	}
 }
 
+/* initalizes all data for the data struct */
 void	init_data(t_data *data)
 {
 	set_input(data);

@@ -12,6 +12,7 @@
 
 #include "philosophers.h"
 
+/* returns the passed time since the simulations started in microseconds */
 long int	get_timestamp(t_data *data)
 {
 	struct timeval	t;

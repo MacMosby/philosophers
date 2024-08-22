@@ -12,6 +12,8 @@
 
 #include <string.h>
 
+/* takes two strings and a number n and compares the first n characters, it
+returns the difference between the first characters that a not the same */
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t	i;

@@ -68,6 +68,9 @@ int			check_status(t_data *data);
 // clean_data.c
 void		clean_data(t_data *data);
 
+// dead_check.c
+int			dead_check(t_data *data);
+
 // destroy_mutexes.c
 void		destroy_mutexes(t_data *data);
 

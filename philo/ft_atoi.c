@@ -12,6 +12,7 @@
 
 #include "philosophers.h"
 
+/* takes a string as argument and returns it as an integer */
 int	ft_atoi(const char *s)
 {
 	int	i;

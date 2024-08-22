@@ -12,6 +12,7 @@
 
 #include "philosophers.h"
 
+/* sets the starting time for the simulation & assigns it to all philosophers */
 void	set_start_time(t_data *data)
 {
 	struct timeval	t;

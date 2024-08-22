@@ -12,6 +12,8 @@
 
 #include "philosophers.h"
 
+/* iterates over all philos and frees them one by one, first the philosopher's
+thread, then the philosopher and lastly the array of philosophers */
 void	clean_philos(t_data *data)
 {
 	int	i;
@@ -26,6 +28,7 @@ void	clean_philos(t_data *data)
 	free(data->philos);
 }
 
+/* destroys all mutexes and frees all memory related to the philosophers */
 void	clean_data(t_data *data)
 {
 	destroy_mutexes(data);

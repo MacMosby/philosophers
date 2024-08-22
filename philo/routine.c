@@ -12,6 +12,8 @@
 
 #include "philosophers.h"
 
+/* prints the logs for the change of the status of a philosopher and assigns
+the new time of eating if a philosopher just started eating */
 void	print_log(t_philo *philo, char *s)
 {
 	long int	time_stamp;
@@ -29,14 +31,16 @@ void	print_log(t_philo *philo, char *s)
 		pthread_mutex_unlock(philo->data->logs);
 }
 
+/* runs the eating routine by picking up two forks depending on the table
+position */
 void	ft_eat(t_philo *philo)
 {
-	if (philo->index % 2 == 0)
+	if (philo->index % 2 == 0 && philo->number != philo->data->num_of_philos)
 		pthread_mutex_lock(&philo->data->forks[philo->index]);
 	else
 		pthread_mutex_lock(&philo->data->forks[(philo->index + 1) % 8]);
 	print_log(philo, FORK);
-	if (philo->index % 2 == 0)
+	if (philo->index % 2 == 0 && philo->number != philo->data->num_of_philos)
 		pthread_mutex_lock(&philo->data->forks[(philo->index + 1) % 8]);
 	else
 		pthread_mutex_lock(&philo->data->forks[philo->index]);
@@ -51,6 +55,7 @@ void	ft_eat(t_philo *philo)
 	pthread_mutex_unlock(&philo->data->forks[(philo->index + 1) % 8]);
 }
 
+/* runs the sleep routine */
 void	ft_sleep(t_philo *philo)
 {
 	print_log(philo, SLEEP);
@@ -58,11 +63,15 @@ void	ft_sleep(t_philo *philo)
 		usleep(philo->data->time_to_sleep * 1000);
 }
 
+/* runs the think routine */
 void	ft_think(t_philo *philo)
 {
 	print_log(philo, THINK);
 }
 
+/* runs the eat sleep think routine for each philosopher and increases
+the number of full philosopher as soon as one has eaten the minimumamount
+of times */
 void	*routine(void *arg)
 {
 	t_philo	*philo;

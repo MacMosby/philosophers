@@ -12,6 +12,7 @@
 
 #include "philosophers.h"
 
+/* creates one thread per philosopher to start the routine */
 void	create_threads(t_data *data)
 {
 	int	i;
@@ -21,11 +22,15 @@ void	create_threads(t_data *data)
 	{
 		if (pthread_create(data->philos[i]->thread, NULL,
 				&routine, data->philos[i]) != 0)
+		{
+			clean_data(data);
 			exit(2);
+		}
 		i++;
 	}
 }
 
+/* waits for all the threads to finish their execution */
 void	join_threads(t_data *data)
 {
 	int	i;
@@ -34,7 +39,10 @@ void	join_threads(t_data *data)
 	while (i < data->num_of_philos)
 	{
 		if (pthread_join(*(data->philos[i]->thread), NULL) != 0)
+		{
+			clean_data(data);
 			exit(3);
+		}
 		i++;
 	}
 }
