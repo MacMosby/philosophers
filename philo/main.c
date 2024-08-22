@@ -36,8 +36,8 @@ int	someone_dead(t_data *data)
 			}
 			else
 				pthread_mutex_unlock(data->dead_mutex);
-			i++;
 		}
+		i++;
 	}
 	return (0);
 }
@@ -56,7 +56,7 @@ int	main(int argc, char **argv)
 		while (1)
 		{
 			// if one dies, stop all threads and break the loop
-			if (/* someone_dead(&data) ||  */check_status(&data) == 0)
+			if (someone_dead(&data) || check_status(&data) == 0)
 			{
 				printf("WHATEVER\n");
 				break;
