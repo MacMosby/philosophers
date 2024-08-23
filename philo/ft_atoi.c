@@ -13,15 +13,8 @@
 #include "philosophers.h"
 
 /* takes a string as argument and returns it as an integer */
-int	ft_atoi(const char *s)
+int	ft_atoi(const char *s, int i, int res, int minus)
 {
-	int	i;
-	int	res;
-	int	minus;
-
-	i = 0;
-	res = 0;
-	minus = 0;
 	while ((s[i] > 8 && s[i] < 14) || s[i] == 32)
 		i++;
 	if (s[i] == 45)

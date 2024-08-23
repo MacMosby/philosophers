@@ -56,6 +56,7 @@ void	init_dead_mutex_memory(t_data *data)
 	}
 }
 
+/* allocates the memory for mutex which protects the philo's eating time */
 void	init_eating_time_mutex_memory(t_data *data)
 {
 	data->eating_time_mutex = ft_calloc(1, sizeof(pthread_mutex_t));

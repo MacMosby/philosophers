@@ -43,6 +43,7 @@ void	init_dead_mutex(t_data *data)
 	pthread_mutex_init(&data->dead_mutex[0], NULL);
 }
 
+/* initializes the mutex to which protects the philo's eating time */
 void	init_eating_time_mutex(t_data *data)
 {
 	pthread_mutex_init(&data->eating_time_mutex[0], NULL);

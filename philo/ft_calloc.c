@@ -12,6 +12,7 @@
 
 #include "philosophers.h"
 
+/* allocates memory and initializes it with zeros */
 void	*ft_calloc(size_t nmemb, size_t size)
 {
 	char	*ptr;

@@ -34,6 +34,7 @@ void	clean_philos(t_data *data)
 	free(data->philos);
 }
 
+/* frees memory allocated for the mutexes */
 void	clean_mutexes(t_data *data)
 {
 	if (data->forks)

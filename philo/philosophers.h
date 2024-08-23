@@ -72,13 +72,13 @@ int			check_status(t_data *data);
 void		clean_data(t_data *data);
 
 // dead_check.c
-int			dead_check(t_data *data);
+int			dead_check(t_data *data, int i);
 
 // destroy_mutexes.c
 void		destroy_mutexes(t_data *data);
 
 // ft_atoi.c
-int			ft_atoi(const char *s);
+int			ft_atoi(const char *s, int i, int res, int minus);
 
 // ft_calloc.c
 void		*ft_calloc(size_t nmemb, size_t size);

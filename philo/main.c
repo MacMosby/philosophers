@@ -13,8 +13,6 @@
 /*
 TO DO
 - check for data races and race conditions --> helgrind
-- norminette
-- comment on all functions as description
 */
 
 #include "philosophers.h"
@@ -34,7 +32,7 @@ int	main(int argc, char **argv)
 		create_threads(&data);
 		while (1)
 		{
-			if (dead_check(&data) || check_status(&data) == 0)
+			if (dead_check(&data, 0) || check_status(&data) == 0)
 			{
 				break ;
 			}

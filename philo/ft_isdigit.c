@@ -12,6 +12,7 @@
 
 #include "philosophers.h"
 
+/* checks if passed argument is a digit or not and returns 0 or 1 accordingly */
 int	ft_isdigit(int s)
 {
 	if (!(s > 47 && s < 58))
