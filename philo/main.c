@@ -12,9 +12,9 @@
 
 /*
 TO DO
-- what to do in all exit cases like malloc protects ???
-	init philos and init mutexes still missing
 - check for data races and race conditions --> helgrind
+- norminette
+- comment on all functions as description
 */
 
 #include "philosophers.h"
@@ -40,6 +40,7 @@ int	main(int argc, char **argv)
 			}
 		}
 		join_threads(&data);
+		destroy_mutexes(&data);
 		clean_data(&data);
 	}
 	else

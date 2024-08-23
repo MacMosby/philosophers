@@ -19,18 +19,36 @@ void	clean_philos(t_data *data)
 	int	i;
 
 	i = 0;
+	if (!data->philos)
+		return ;
 	while (i < data->num_of_philos)
 	{
-		free(data->philos[i]->thread);
-		free(data->philos[i]);
+		if (data->philos[i])
+		{
+			if (data->philos[i]->thread)
+				free(data->philos[i]->thread);
+			free(data->philos[i]);
+		}
 		i++;
 	}
 	free(data->philos);
 }
 
+void	clean_mutexes(t_data *data)
+{
+	if (data->forks)
+		free(data->forks);
+	if (data->logs)
+		free(data->logs);
+	if (data->dead_mutex)
+		free(data->dead_mutex);
+	if (data->full_philos_mutex)
+		free(data->full_philos_mutex);
+}
+
 /* destroys all mutexes and frees all memory related to the philosophers */
 void	clean_data(t_data *data)
 {
-	destroy_mutexes(data);
 	clean_philos(data);
+	clean_mutexes(data);
 }

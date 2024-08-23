@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrodenbu <mrodenbu@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/26 14:27:25 by mrodenbu          #+#    #+#             */
-/*   Updated: 2023/06/26 15:38:07 by mrodenbu         ###   ########.fr       */
+/*   Created: 2023/06/05 16:01:11 by mrodenbu          #+#    #+#             */
+/*   Updated: 2023/06/21 14:40:59 by mrodenbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-/* takes two strings and a number n and compares the first n characters, it
-returns the difference between the first characters that a not the same */
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+int	ft_isdigit(int s)
 {
-	size_t	i;
-
-	i = 0;
-	while (((unsigned char)s1[i] == (unsigned char)s2[i])
-		&& i < n && (unsigned char)s1[i] != '\0'
-		&& (unsigned char)s2[i] != '\0')
-		i++;
-	if (i == n)
+	if (!(s > 47 && s < 58))
+	{
 		return (0);
-	else
-		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	}
+	return (1);
 }

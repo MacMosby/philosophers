@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrodenbu <mrodenbu@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/26 14:27:25 by mrodenbu          #+#    #+#             */
-/*   Updated: 2023/06/26 15:38:07 by mrodenbu         ###   ########.fr       */
+/*   Created: 2023/06/28 15:08:16 by mrodenbu          #+#    #+#             */
+/*   Updated: 2023/06/28 16:08:55 by mrodenbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-/* takes two strings and a number n and compares the first n characters, it
-returns the difference between the first characters that a not the same */
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
+	char	*ptr;
 	size_t	i;
 
 	i = 0;
-	while (((unsigned char)s1[i] == (unsigned char)s2[i])
-		&& i < n && (unsigned char)s1[i] != '\0'
-		&& (unsigned char)s2[i] != '\0')
-		i++;
-	if (i == n)
-		return (0);
+	ptr = (char *)malloc(nmemb * size);
+	if (ptr == NULL)
+		return (NULL);
 	else
-		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	{
+		while (i < nmemb * size)
+		{
+			ptr[i] = 0;
+			i++;
+		}
+		return ((void *)ptr);
+	}
 }

@@ -23,8 +23,12 @@ void	print_log(t_philo *philo, char *s)
 	{
 		time_stamp = get_timestamp(philo->data);
 		if (ft_strncmp(s, EAT, 9) == 0)
+		{
+			pthread_mutex_lock(philo->data->eating_time_mutex);
 			philo->eating_time = get_timestamp(philo->data);
-		printf("%ld %d %s\n", time_stamp, philo->number, s);
+			pthread_mutex_unlock(philo->data->eating_time_mutex);
+		}
+		printf("%ld %d %s\n", time_stamp / 1000, philo->number, s);
 		pthread_mutex_unlock(philo->data->logs);
 	}
 	else
@@ -35,15 +39,10 @@ void	print_log(t_philo *philo, char *s)
 position */
 void	ft_eat(t_philo *philo)
 {
-	if (philo->index % 2 == 0 && philo->number != philo->data->num_of_philos)
-		pthread_mutex_lock(&philo->data->forks[philo->index]);
-	else
-		pthread_mutex_lock(&philo->data->forks[(philo->index + 1) % 8]);
+	pthread_mutex_lock(&philo->data->forks[philo->index]);
 	print_log(philo, FORK);
-	if (philo->index % 2 == 0 && philo->number != philo->data->num_of_philos)
-		pthread_mutex_lock(&philo->data->forks[(philo->index + 1) % 8]);
-	else
-		pthread_mutex_lock(&philo->data->forks[philo->index]);
+	pthread_mutex_lock(&philo->data->forks
+	[(philo->index + 1) % philo->data->num_of_philos]);
 	print_log(philo, FORK);
 	print_log(philo, EAT);
 	if (check_status(philo->data))
@@ -52,7 +51,8 @@ void	ft_eat(t_philo *philo)
 		philo->times_eaten++;
 	}
 	pthread_mutex_unlock(&philo->data->forks[philo->index]);
-	pthread_mutex_unlock(&philo->data->forks[(philo->index + 1) % 8]);
+	pthread_mutex_unlock(&philo->data->forks
+	[(philo->index + 1) % philo->data->num_of_philos]);
 }
 
 /* runs the sleep routine */
@@ -61,6 +61,7 @@ void	ft_sleep(t_philo *philo)
 	print_log(philo, SLEEP);
 	if (check_status(philo->data))
 		usleep(philo->data->time_to_sleep * 1000);
+	philo->sleep_count += 1;
 }
 
 /* runs the think routine */
@@ -77,7 +78,7 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	if (philo->index % 2 == 1)
+	if (philo->index % 2 == 1 || philo->number == philo->data->num_of_philos)
 		usleep(philo->data->time_to_eat * 1000 / 2);
 	while (check_status(philo->data))
 	{

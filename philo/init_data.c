@@ -19,7 +19,8 @@ void	set_input(t_data *data)
 	if (data->num_of_philos < 2)
 	{
 		printf("At least two philosophers are needed.\n");
-		exit(1);
+		clean_data(data);
+		exit(0);
 	}
 	data->time_to_die = ft_atoi(data->av[2]);
 	data->time_to_eat = ft_atoi(data->av[3]);
@@ -35,36 +36,72 @@ void	init_philos(t_data *data)
 {
 	int	i;
 
-	data->philos = malloc(data->num_of_philos * sizeof(t_philo *));
+	data->philos = ft_calloc(data->num_of_philos, sizeof(t_philo *));
 	if (!data->philos)
+	{
+		clean_data(data);
 		exit(1);
+	}
 	i = 0;
 	while (i < data->num_of_philos)
 	{
-		data->philos[i] = malloc(sizeof(t_philo));
+		data->philos[i] = ft_calloc(1, sizeof(t_philo));
 		if (!data->philos[i])
+		{
+			clean_data(data);
 			exit(2);
+		}
 		data->philos[i]->index = i;
 		data->philos[i]->number = i + 1;
 		data->philos[i]->full = 0;
 		data->philos[i]->times_eaten = 0;
 		data->philos[i]->eating_time = 0;
-		data->philos[i]->thread = malloc(sizeof(pthread_t));
+		data->philos[i]->sleep_count = 0;
+		data->philos[i]->thread = ft_calloc(1, sizeof(pthread_t));
 		if (!data->philos[i]->thread)
+		{
+			clean_data(data);
 			exit(3);
+		}
 		data->philos[i]->data = data;
 		i++;
 	}
 }
 
+/* allocates memory for all the mutexes */
+void	init_mutex_memory(t_data *data)
+{
+	init_forks_memory(data);
+	init_logs_mutex_memory(data);
+	init_full_philos_mutex_memory(data);
+	init_dead_mutex_memory(data);
+	init_eating_time_mutex_memory(data);
+}
+
+/* initializes all mutexes */
+void	init_mutexes(t_data *data)
+{
+	init_forks(data);
+	init_logs_mutex(data);
+	init_full_philos_mutex(data);
+	init_dead_mutex(data);
+	init_eating_time_mutex(data);
+}
+
 /* initalizes all data for the data struct */
 void	init_data(t_data *data)
 {
-	set_input(data);
 	data->full_philos = 0;
 	data->dead = 0;
 	data->secs = 0;
 	data->msecs = 0;
+	data->philos = NULL;
+	data->forks = NULL;
+	data->logs = NULL;
+	data->dead_mutex = NULL;
+	data->full_philos_mutex = NULL;
+	set_input(data);
 	init_philos(data);
+	init_mutex_memory(data);
 	init_mutexes(data);
 }

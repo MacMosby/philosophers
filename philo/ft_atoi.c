@@ -31,8 +31,13 @@ int	ft_atoi(const char *s)
 	}
 	else if (s[i] == 43)
 		i++;
-	while (s[i] > 47 && s[i] < 58)
+	while (s[i])
 	{
+		if (!(ft_isdigit((int)s[i])))
+		{
+			printf("Wrong input - not a number!\n");
+			exit(11);
+		}
 		res *= 10;
 		res += (int)s[i] - 48;
 		i++;

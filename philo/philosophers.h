@@ -24,6 +24,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
+# include <string.h>
 # include <pthread.h>
 # include <sys/time.h>
 
@@ -47,6 +48,7 @@ typedef struct s_data
 	pthread_mutex_t	*logs;
 	pthread_mutex_t	*full_philos_mutex;
 	pthread_mutex_t	*dead_mutex;
+	pthread_mutex_t	*eating_time_mutex;
 }	t_data;
 
 typedef struct s_philo
@@ -56,6 +58,7 @@ typedef struct s_philo
 	int			full;
 	int			times_eaten;
 	long int	eating_time;
+	int			sleep_count;
 	pthread_t	*thread;
 	t_data		*data;
 }	t_philo;
@@ -77,6 +80,12 @@ void		destroy_mutexes(t_data *data);
 // ft_atoi.c
 int			ft_atoi(const char *s);
 
+// ft_calloc.c
+void		*ft_calloc(size_t nmemb, size_t size);
+
+// ft_isdigit.c
+int			ft_isdigit(int s);
+
 // ft_strncmp.c
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 
@@ -86,8 +95,19 @@ long int	get_timestamp(t_data *data);
 // init_data.c
 void		init_data(t_data *data);
 
+// init_mutex_memory.c
+void		init_forks_memory(t_data *data);
+void		init_logs_mutex_memory(t_data *data);
+void		init_full_philos_mutex_memory(t_data *data);
+void		init_dead_mutex_memory(t_data *data);
+void		init_eating_time_mutex_memory(t_data *data);
+
 // init_mutexes.c
-void		init_mutexes(t_data *data);
+void		init_forks(t_data *data);
+void		init_logs_mutex(t_data *data);
+void		init_full_philos_mutex(t_data *data);
+void		init_dead_mutex(t_data *data);
+void		init_eating_time_mutex(t_data *data);
 
 // routine.c
 void		print_log(t_philo *philo, char *s);
