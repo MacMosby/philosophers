@@ -45,6 +45,8 @@ void	clean_mutexes(t_data *data)
 		free(data->dead_mutex);
 	if (data->full_philos_mutex)
 		free(data->full_philos_mutex);
+	if (data->philo_number_mutex)
+		free(data->philo_number_mutex);
 }
 
 /* destroys all mutexes and frees all memory related to the philosophers */

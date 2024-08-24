@@ -49,6 +49,7 @@ typedef struct s_data
 	pthread_mutex_t	*full_philos_mutex;
 	pthread_mutex_t	*dead_mutex;
 	pthread_mutex_t	*eating_time_mutex;
+	pthread_mutex_t	*philo_number_mutex;
 }	t_data;
 
 typedef struct s_philo
@@ -108,6 +109,11 @@ void		init_logs_mutex(t_data *data);
 void		init_full_philos_mutex(t_data *data);
 void		init_dead_mutex(t_data *data);
 void		init_eating_time_mutex(t_data *data);
+
+// philo_number_mutex.c
+void		init_philo_number_mutex(t_data *data);
+void		init_philo_number_mutex_memory(t_data *data);
+void		destroy_philo_number_mutex(t_data *data);
 
 // routine.c
 void		print_log(t_philo *philo, char *s);

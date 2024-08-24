@@ -28,7 +28,9 @@ void	print_log(t_philo *philo, char *s)
 			philo->eating_time = get_timestamp(philo->data);
 			pthread_mutex_unlock(philo->data->eating_time_mutex);
 		}
+		pthread_mutex_lock(philo->data->philo_number_mutex);
 		printf("%ld %d %s\n", time_stamp / 1000, philo->number, s);
+		pthread_mutex_unlock(philo->data->philo_number_mutex);
 		pthread_mutex_unlock(philo->data->logs);
 	}
 	else

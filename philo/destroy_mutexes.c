@@ -51,4 +51,5 @@ void	destroy_mutexes(t_data *data)
 	destroy_logs_mutex(data);
 	destroy_full_philos_mutex(data);
 	destroy_dead_mutex(data);
+	destroy_philo_number_mutex(data);
 }

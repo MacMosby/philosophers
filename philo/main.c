@@ -10,11 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-TO DO
-- check for data races and race conditions --> helgrind
-*/
-
 #include "philosophers.h"
 
 /* checks number of passed arguments and monitors the running simulation for
@@ -32,7 +27,7 @@ int	main(int argc, char **argv)
 		create_threads(&data);
 		while (1)
 		{
-			if (dead_check(&data, 0) || check_status(&data) == 0)
+			if (dead_check(&data, -1) || check_status(&data) == 0)
 			{
 				break ;
 			}

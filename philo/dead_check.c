@@ -18,7 +18,7 @@ int	dead_check(t_data *data, int i)
 {
 	long int	time_passed;
 
-	while (i < data->num_of_philos)
+	while (++i < data->num_of_philos)
 	{
 		pthread_mutex_lock(data->eating_time_mutex);
 		time_passed = get_timestamp(data) - data->philos[i]->eating_time;
@@ -28,8 +28,10 @@ int	dead_check(t_data *data, int i)
 			pthread_mutex_lock(data->dead_mutex);
 			if (data->dead == 0)
 			{
+				pthread_mutex_lock(data->philo_number_mutex);
 				printf("%ld %d %s\n", get_timestamp(data) / 1000,
 					data->philos[i]->number, DIED);
+				pthread_mutex_unlock(data->philo_number_mutex);
 				data->dead = 1;
 				pthread_mutex_unlock(data->dead_mutex);
 				return (1);
@@ -37,7 +39,6 @@ int	dead_check(t_data *data, int i)
 			else
 				pthread_mutex_unlock(data->dead_mutex);
 		}
-		i++;
 	}
 	return (0);
 }
