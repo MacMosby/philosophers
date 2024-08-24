@@ -29,7 +29,7 @@ int	ft_atoi(const char *s, int i, int res, int minus)
 		if (!(ft_isdigit((int)s[i])))
 		{
 			printf("Wrong input - not a number!\n");
-			exit(11);
+			exit(13);
 		}
 		res *= 10;
 		res += (int)s[i] - 48;

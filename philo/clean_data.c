@@ -41,10 +41,14 @@ void	clean_mutexes(t_data *data)
 		free(data->forks);
 	if (data->logs)
 		free(data->logs);
+	if (data->all_full_mutex)
+		free(data->all_full_mutex);
 	if (data->dead_mutex)
 		free(data->dead_mutex);
 	if (data->full_philos_mutex)
 		free(data->full_philos_mutex);
+	if (data->eating_time_mutex)
+		free(data->eating_time_mutex);
 	if (data->philo_number_mutex)
 		free(data->philo_number_mutex);
 }

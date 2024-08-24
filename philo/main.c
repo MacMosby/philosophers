@@ -12,6 +12,26 @@
 
 #include "philosophers.h"
 
+void	all_full(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	data->full_philos = 0;
+	while (i < data->num_of_philos)
+	{
+		if (data->philos[i]->full)
+		{
+			data->full_philos += 1;
+			if (data->full_philos == data->num_of_philos)
+				data->all_full = 1;
+		}
+		else
+			break ;
+		i++;
+	}
+}
+
 /* checks number of passed arguments and monitors the running simulation for
 a philosopher dying and philosophers being full */
 int	main(int argc, char **argv)
@@ -27,6 +47,7 @@ int	main(int argc, char **argv)
 		create_threads(&data);
 		while (1)
 		{
+			all_full(&data);
 			if (dead_check(&data, -1) || check_status(&data) == 0)
 			{
 				break ;

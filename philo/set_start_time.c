@@ -26,7 +26,9 @@ void	set_start_time(t_data *data)
 	i = 0;
 	while (i < data->num_of_philos)
 	{
-		data->philos[i]->eating_time = time;
+		pthread_mutex_lock(data->eating_time_mutex);
+		data->philos[i]->eating_time = get_timestamp(data);
+		pthread_mutex_unlock(data->eating_time_mutex);
 		i++;
 	}
 }

@@ -16,9 +16,9 @@
 void	set_input(t_data *data)
 {
 	data->num_of_philos = ft_atoi(data->av[1], 0, 0, 0);
-	if (data->num_of_philos < 2)
+	if (data->num_of_philos < 1)
 	{
-		printf("At least two philosophers are needed.\n");
+		printf("At least one philosopher is needed.\n");
 		clean_data(data);
 		exit(0);
 	}
@@ -39,7 +39,6 @@ void	set_philo_values(t_philo *philo, int i)
 	philo->full = 0;
 	philo->times_eaten = 0;
 	philo->eating_time = 0;
-	philo->sleep_count = 0;
 }
 
 /* initializes the memory and values for each philosopher */
@@ -76,14 +75,16 @@ void	init_mutexes(t_data *data)
 {
 	init_forks_memory(data);
 	init_logs_mutex_memory(data);
-	init_full_philos_mutex_memory(data);
+	init_all_full_mutex_memory(data);
 	init_dead_mutex_memory(data);
+	init_full_philos_mutex_memory(data);
 	init_eating_time_mutex_memory(data);
 	init_philo_number_mutex_memory(data);
 	init_forks(data);
 	init_logs_mutex(data);
-	init_full_philos_mutex(data);
+	init_all_full_mutex(data);
 	init_dead_mutex(data);
+	init_full_philos_mutex(data);
 	init_eating_time_mutex(data);
 	init_philo_number_mutex(data);
 }
@@ -91,6 +92,7 @@ void	init_mutexes(t_data *data)
 /* initalizes all data for the data struct */
 void	init_data(t_data *data)
 {
+	data->all_full = 0;
 	data->full_philos = 0;
 	data->dead = 0;
 	data->secs = 0;
@@ -98,8 +100,10 @@ void	init_data(t_data *data)
 	data->philos = NULL;
 	data->forks = NULL;
 	data->logs = NULL;
+	data->all_full_mutex = NULL;
 	data->dead_mutex = NULL;
 	data->full_philos_mutex = NULL;
+	data->eating_time_mutex = NULL;
 	data->philo_number_mutex = NULL;
 	set_input(data);
 	init_philos(data, 0);

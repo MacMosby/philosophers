@@ -30,13 +30,13 @@ int	check_dead(t_data *data)
 and returns 1 (yes) or 0 (no) accordingly */
 int	check_all_full(t_data *data)
 {
-	pthread_mutex_lock(data->full_philos_mutex);
-	if (data->full_philos == data->num_of_philos)
+	pthread_mutex_lock(data->all_full_mutex);
+	if (data->all_full == 1)
 	{
-		pthread_mutex_unlock(data->full_philos_mutex);
+		pthread_mutex_unlock(data->all_full_mutex);
 		return (1);
 	}
-	pthread_mutex_unlock(data->full_philos_mutex);
+	pthread_mutex_unlock(data->all_full_mutex);
 	return (0);
 }
 

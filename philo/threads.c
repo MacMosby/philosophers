@@ -24,7 +24,7 @@ void	create_threads(t_data *data)
 				&routine, data->philos[i]) != 0)
 		{
 			clean_data(data);
-			exit(10);
+			exit(11);
 		}
 		i++;
 	}
@@ -41,7 +41,7 @@ void	join_threads(t_data *data)
 		if (pthread_join(*(data->philos[i]->thread), NULL) != 0)
 		{
 			clean_data(data);
-			exit(11);
+			exit(12);
 		}
 		i++;
 	}

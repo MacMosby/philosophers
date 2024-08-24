@@ -63,7 +63,6 @@ void	ft_sleep(t_philo *philo)
 	print_log(philo, SLEEP);
 	if (check_status(philo->data))
 		usleep(philo->data->time_to_sleep * 1000);
-	philo->sleep_count += 1;
 }
 
 /* runs the think routine */
@@ -84,15 +83,18 @@ void	*routine(void *arg)
 		usleep(philo->data->time_to_eat * 1000 / 2);
 	while (check_status(philo->data))
 	{
-		ft_eat(philo);
-		if (philo->times_eaten == philo->data->num_of_must_eats)
+		if (philo->data->num_of_philos > 1)
 		{
-			pthread_mutex_lock(philo->data->full_philos_mutex);
-			philo->data->full_philos += 1;
-			pthread_mutex_unlock(philo->data->full_philos_mutex);
+			ft_eat(philo);
+			if (philo->times_eaten == philo->data->num_of_must_eats)
+			{
+				pthread_mutex_lock(philo->data->full_philos_mutex);
+				philo->full = 1;
+				pthread_mutex_unlock(philo->data->full_philos_mutex);
+			}
+			ft_sleep(philo);
+			ft_think(philo);
 		}
-		ft_sleep(philo);
-		ft_think(philo);
 	}
 	return (NULL);
 }
