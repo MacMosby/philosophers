@@ -19,7 +19,7 @@ void	init_forks_memory(t_data *data)
 	if (!data->forks)
 	{
 		clean_data(data);
-		exit(4);
+		exit(5);
 	}
 }
 
@@ -30,7 +30,7 @@ void	init_logs_mutex_memory(t_data *data)
 	if (!data->logs)
 	{
 		clean_data(data);
-		exit(5);
+		exit(6);
 	}
 }
 
@@ -41,7 +41,7 @@ void	init_full_philos_mutex_memory(t_data *data)
 	if (!data->full_philos_mutex)
 	{
 		clean_data(data);
-		exit(6);
+		exit(7);
 	}
 }
 
@@ -52,7 +52,7 @@ void	init_dead_mutex_memory(t_data *data)
 	if (!data->dead_mutex)
 	{
 		clean_data(data);
-		exit(7);
+		exit(8);
 	}
 }
 
@@ -63,6 +63,6 @@ void	init_eating_time_mutex_memory(t_data *data)
 	if (!data->eating_time_mutex)
 	{
 		clean_data(data);
-		exit(8);
+		exit(9);
 	}
 }

@@ -25,7 +25,7 @@ void	init_all_full_mutex_memory(t_data *data)
 	if (!data->all_full_mutex)
 	{
 		clean_data(data);
-		exit(10);
+		exit(11);
 	}
 }
 

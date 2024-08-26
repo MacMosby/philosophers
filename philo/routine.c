@@ -89,7 +89,9 @@ void	*routine(void *arg)
 			if (philo->times_eaten == philo->data->num_of_must_eats)
 			{
 				pthread_mutex_lock(philo->data->full_philos_mutex);
+				pthread_mutex_lock(philo->p_mutex);
 				philo->full = 1;
+				pthread_mutex_unlock(philo->p_mutex);
 				pthread_mutex_unlock(philo->data->full_philos_mutex);
 			}
 			ft_sleep(philo);

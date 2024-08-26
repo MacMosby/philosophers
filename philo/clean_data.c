@@ -27,6 +27,8 @@ void	clean_philos(t_data *data)
 		{
 			if (data->philos[i]->thread)
 				free(data->philos[i]->thread);
+			if (data->philos[i]->p_mutex)
+				free(data->philos[i]->p_mutex);
 			free(data->philos[i]);
 		}
 		i++;

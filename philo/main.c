@@ -20,14 +20,19 @@ void	all_full(t_data *data)
 	data->full_philos = 0;
 	while (i < data->num_of_philos)
 	{
+		pthread_mutex_lock(data->philos[i]->p_mutex);
 		if (data->philos[i]->full)
 		{
+			pthread_mutex_unlock(data->philos[i]->p_mutex);
 			data->full_philos += 1;
 			if (data->full_philos == data->num_of_philos)
 				data->all_full = 1;
 		}
 		else
+		{
+			pthread_mutex_unlock(data->philos[i]->p_mutex);
 			break ;
+		}
 		i++;
 	}
 }
@@ -47,8 +52,9 @@ int	main(int argc, char **argv)
 		create_threads(&data);
 		while (1)
 		{
+			dead_check(&data, -1);
 			all_full(&data);
-			if (dead_check(&data, -1) || check_status(&data) == 0)
+			if (check_status(&data) == 0)
 			{
 				break ;
 			}

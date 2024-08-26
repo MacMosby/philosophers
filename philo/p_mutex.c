@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   p_mutex.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrodenbu <mrodenbu@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/17 17:25:50 by mrodenbu          #+#    #+#             */
-/*   Updated: 2024/08/17 17:25:52 by mrodenbu         ###   ########.fr       */
+/*   Created: 2024/08/24 18:05:12 by mrodenbu          #+#    #+#             */
+/*   Updated: 2024/08/24 18:05:13 by mrodenbu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-/* takes a string as argument and returns it as an integer */
-int	ft_atoi(const char *s, int i, int res)
+void	init_p_mutex(t_data *data, int i)
 {
-	while ((s[i] > 8 && s[i] < 14) || s[i] == 32)
-		i++;
-	if (s[i] == 43)
-		i++;
-	while (s[i])
+	data->philos[i]->p_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
+	if (!data->philos[i]->p_mutex)
 	{
-		res *= 10;
-		res += (int)s[i] - 48;
-		i++;
+		clean_data(data);
+		exit(3);
 	}
-	return (res);
+	pthread_mutex_init(&data->philos[i]->p_mutex[0], NULL);
+}
+
+/* destroys the mutex to indicate the death of a philosopher & frees the
+allocated memory */
+void	destroy_p_mutex(t_data *data, int i)
+{
+	pthread_mutex_destroy(&data->philos[i]->p_mutex[0]);
 }

@@ -14,7 +14,7 @@
 
 /* checks the passed time since each philosopher has started eating for the
 last time and calls their death if it surpasses the time_to_die value */
-int	dead_check(t_data *data, int i)
+void	dead_check(t_data *data, int i)
 {
 	long int	time_passed;
 
@@ -25,6 +25,7 @@ int	dead_check(t_data *data, int i)
 		pthread_mutex_unlock(data->eating_time_mutex);
 		if (time_passed > data->time_to_die * 1000)
 		{
+			pthread_mutex_lock(data->eating_time_mutex);
 			pthread_mutex_lock(data->dead_mutex);
 			if (data->dead == 0)
 			{
@@ -34,11 +35,10 @@ int	dead_check(t_data *data, int i)
 				pthread_mutex_unlock(data->philo_number_mutex);
 				data->dead = 1;
 				pthread_mutex_unlock(data->dead_mutex);
-				return (1);
 			}
 			else
 				pthread_mutex_unlock(data->dead_mutex);
+			pthread_mutex_unlock(data->eating_time_mutex);
 		}
 	}
-	return (0);
 }

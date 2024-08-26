@@ -56,13 +56,14 @@ typedef struct s_data
 
 typedef struct s_philo
 {
-	int			index;
-	int			number;
-	int			full;
-	int			times_eaten;
-	long int	eating_time;
-	pthread_t	*thread;
-	t_data		*data;
+	int				index;
+	int				number;
+	int				full;
+	int				times_eaten;
+	long int		eating_time;
+	pthread_mutex_t	*p_mutex;
+	pthread_t		*thread;
+	t_data			*data;
 }	t_philo;
 
 // FUNCTIONS
@@ -79,7 +80,7 @@ int			check_status(t_data *data);
 void		clean_data(t_data *data);
 
 // dead_check.c
-int			dead_check(t_data *data, int i);
+void		dead_check(t_data *data, int i);
 
 // destroy_mutexes.c
 void		destroy_mutexes(t_data *data);
@@ -88,7 +89,7 @@ void		destroy_mutexes(t_data *data);
 void		destroy_eating_time_mutex(t_data *data);
 
 // ft_atoi.c
-int			ft_atoi(const char *s, int i, int res, int minus);
+int			ft_atoi(const char *s, int i, int res);
 
 // ft_calloc.c
 void		*ft_calloc(size_t nmemb, size_t size);
@@ -118,6 +119,13 @@ void		init_logs_mutex(t_data *data);
 void		init_full_philos_mutex(t_data *data);
 void		init_dead_mutex(t_data *data);
 void		init_eating_time_mutex(t_data *data);
+
+// isint.c
+int			isint(char *str);
+
+// p_mutex.c
+void		init_p_mutex(t_data *data, int i);
+void		destroy_p_mutex(t_data *data, int i);
 
 // philo_number_mutex.c
 void		init_philo_number_mutex(t_data *data);

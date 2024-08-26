@@ -25,7 +25,7 @@ void	init_philo_number_mutex_memory(t_data *data)
 	if (!data->philo_number_mutex)
 	{
 		clean_data(data);
-		exit(9);
+		exit(10);
 	}
 }
 

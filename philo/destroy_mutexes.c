@@ -47,6 +47,8 @@ void	destroy_dead_mutex(t_data *data)
 /* destroy all mutexes by calling several destroy_mutex functions */
 void	destroy_mutexes(t_data *data)
 {
+	int	i;
+
 	destroy_forks(data);
 	destroy_logs_mutex(data);
 	destroy_all_full_mutex(data);
@@ -54,4 +56,10 @@ void	destroy_mutexes(t_data *data)
 	destroy_full_philos_mutex(data);
 	destroy_eating_time_mutex(data);
 	destroy_philo_number_mutex(data);
+	i = 0;
+	while (i < data->num_of_philos)
+	{
+		destroy_p_mutex(data, i);
+		i++;
+	}
 }

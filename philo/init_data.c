@@ -15,18 +15,25 @@
 /* assigns the passed arguments to the data struct by using ft_atoi */
 void	set_input(t_data *data)
 {
-	data->num_of_philos = ft_atoi(data->av[1], 0, 0, 0);
+	if (isint(data->av[1]))
+		data->num_of_philos = ft_atoi(data->av[1], 0, 0);
 	if (data->num_of_philos < 1)
 	{
 		printf("At least one philosopher is needed.\n");
 		clean_data(data);
 		exit(0);
 	}
-	data->time_to_die = ft_atoi(data->av[2], 0, 0, 0);
-	data->time_to_eat = ft_atoi(data->av[3], 0, 0, 0);
-	data->time_to_sleep = ft_atoi(data->av[4], 0, 0, 0);
+	if (isint(data->av[2]))
+		data->time_to_die = ft_atoi(data->av[2], 0, 0);
+	if (isint(data->av[3]))
+		data->time_to_eat = ft_atoi(data->av[3], 0, 0);
+	if (isint(data->av[4]))
+		data->time_to_sleep = ft_atoi(data->av[4], 0, 0);
 	if (data->ac == 6)
-		data->num_of_must_eats = ft_atoi(data->av[5], 0, 0, 0);
+	{
+		if (isint(data->av[5]))
+			data->num_of_must_eats = ft_atoi(data->av[5], 0, 0);
+	}
 	else
 		data->num_of_must_eats = -1;
 }
@@ -59,11 +66,12 @@ void	init_philos(t_data *data, int i)
 			exit(2);
 		}
 		set_philo_values(data->philos[i], i);
+		init_p_mutex(data, i);
 		data->philos[i]->thread = ft_calloc(1, sizeof(pthread_t));
 		if (!data->philos[i]->thread)
 		{
 			clean_data(data);
-			exit(3);
+			exit(4);
 		}
 		data->philos[i]->data = data;
 		i++;
