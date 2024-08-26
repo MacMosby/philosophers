@@ -53,7 +53,7 @@ int	isint(char *str)
 {
 	long long int	num;
 
-	if (ft_strlen(str))
+	if (ft_strlen(str) > 10)
 	{
 		printf("Wrong input - not a valid number!\n");
 		exit(15);
