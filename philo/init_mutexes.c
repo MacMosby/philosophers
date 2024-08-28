@@ -31,20 +31,14 @@ void	init_logs_mutex(t_data *data)
 	pthread_mutex_init(&data->logs[0], NULL);
 }
 
-/* initialzes the mutex to count all full philosophers */
-void	init_full_philos_mutex(t_data *data)
+/* initializes the mutex which protects if all philos are full */
+void	init_all_full_mutex(t_data *data)
 {
-	pthread_mutex_init(&data->full_philos_mutex[0], NULL);
+	pthread_mutex_init(&data->all_full_mutex[0], NULL);
 }
 
 /* initialzes the mutex to indicate the death of a philosopher */
 void	init_dead_mutex(t_data *data)
 {
 	pthread_mutex_init(&data->dead_mutex[0], NULL);
-}
-
-/* initializes the mutex to which protects the philo's eating time */
-void	init_eating_time_mutex(t_data *data)
-{
-	pthread_mutex_init(&data->eating_time_mutex[0], NULL);
 }

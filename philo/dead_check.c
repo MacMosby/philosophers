@@ -20,25 +20,25 @@ void	dead_check(t_data *data, int i)
 
 	while (++i < data->num_of_philos)
 	{
-		pthread_mutex_lock(data->eating_time_mutex);
+		pthread_mutex_lock(data->philos[i]->p_mutex);
 		time_passed = get_timestamp(data) - data->philos[i]->eating_time;
-		pthread_mutex_unlock(data->eating_time_mutex);
+		pthread_mutex_unlock(data->philos[i]->p_mutex);
 		if (time_passed > data->time_to_die * 1000)
 		{
-			pthread_mutex_lock(data->eating_time_mutex);
 			pthread_mutex_lock(data->dead_mutex);
 			if (data->dead == 0)
 			{
-				pthread_mutex_lock(data->philo_number_mutex);
+				pthread_mutex_unlock(data->dead_mutex);
+				pthread_mutex_lock(data->philos[i]->p_mutex);
 				printf("%ld %d %s\n", get_timestamp(data) / 1000,
 					data->philos[i]->number, DIED);
-				pthread_mutex_unlock(data->philo_number_mutex);
+				pthread_mutex_unlock(data->philos[i]->p_mutex);
+				pthread_mutex_lock(data->dead_mutex);
 				data->dead = 1;
 				pthread_mutex_unlock(data->dead_mutex);
 			}
 			else
 				pthread_mutex_unlock(data->dead_mutex);
-			pthread_mutex_unlock(data->eating_time_mutex);
 		}
 	}
 }

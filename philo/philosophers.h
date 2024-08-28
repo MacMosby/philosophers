@@ -49,9 +49,6 @@ typedef struct s_data
 	pthread_mutex_t	*logs;
 	pthread_mutex_t	*all_full_mutex;
 	pthread_mutex_t	*dead_mutex;
-	pthread_mutex_t	*full_philos_mutex;
-	pthread_mutex_t	*eating_time_mutex;
-	pthread_mutex_t	*philo_number_mutex;
 }	t_data;
 
 typedef struct s_philo
@@ -68,11 +65,6 @@ typedef struct s_philo
 
 // FUNCTIONS
 
-// all_full_mutex.c
-void		init_all_full_mutex(t_data *data);
-void		init_all_full_mutex_memory(t_data *data);
-void		destroy_all_full_mutex(t_data *data);
-
 // check_status.c
 int			check_status(t_data *data);
 
@@ -84,9 +76,6 @@ void		dead_check(t_data *data, int i);
 
 // destroy_mutexes.c
 void		destroy_mutexes(t_data *data);
-
-// eating_time_mutex.c
-void		destroy_eating_time_mutex(t_data *data);
 
 // ft_atoi.c
 int			ft_atoi(const char *s, int i, int res);
@@ -109,16 +98,14 @@ void		init_data(t_data *data);
 // init_mutex_memory.c
 void		init_forks_memory(t_data *data);
 void		init_logs_mutex_memory(t_data *data);
-void		init_full_philos_mutex_memory(t_data *data);
+void		init_all_full_mutex_memory(t_data *data);
 void		init_dead_mutex_memory(t_data *data);
-void		init_eating_time_mutex_memory(t_data *data);
 
 // init_mutexes.c
 void		init_forks(t_data *data);
 void		init_logs_mutex(t_data *data);
-void		init_full_philos_mutex(t_data *data);
+void		init_all_full_mutex(t_data *data);
 void		init_dead_mutex(t_data *data);
-void		init_eating_time_mutex(t_data *data);
 
 // isint.c
 int			isint(char *str);
@@ -126,11 +113,6 @@ int			isint(char *str);
 // p_mutex.c
 void		init_p_mutex(t_data *data, int i);
 void		destroy_p_mutex(t_data *data, int i);
-
-// philo_number_mutex.c
-void		init_philo_number_mutex(t_data *data);
-void		init_philo_number_mutex_memory(t_data *data);
-void		destroy_philo_number_mutex(t_data *data);
 
 // routine.c
 void		print_log(t_philo *philo, char *s);

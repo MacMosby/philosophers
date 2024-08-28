@@ -34,14 +34,14 @@ void	init_logs_mutex_memory(t_data *data)
 	}
 }
 
-/* allocates memory for the mutex to protect the number of full philos */
-void	init_full_philos_mutex_memory(t_data *data)
+/* allocates the memory for mutex which protects if all philos are full */
+void	init_all_full_mutex_memory(t_data *data)
 {
-	data->full_philos_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
-	if (!data->full_philos_mutex)
+	data->all_full_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
+	if (!data->all_full_mutex)
 	{
 		clean_data(data);
-		exit(7);
+		exit(11);
 	}
 }
 
@@ -53,16 +53,5 @@ void	init_dead_mutex_memory(t_data *data)
 	{
 		clean_data(data);
 		exit(8);
-	}
-}
-
-/* allocates the memory for mutex which protects the philo's eating time */
-void	init_eating_time_mutex_memory(t_data *data)
-{
-	data->eating_time_mutex = ft_calloc(1, sizeof(pthread_mutex_t));
-	if (!data->eating_time_mutex)
-	{
-		clean_data(data);
-		exit(9);
 	}
 }

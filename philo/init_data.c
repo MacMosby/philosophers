@@ -85,16 +85,10 @@ void	init_mutexes(t_data *data)
 	init_logs_mutex_memory(data);
 	init_all_full_mutex_memory(data);
 	init_dead_mutex_memory(data);
-	init_full_philos_mutex_memory(data);
-	init_eating_time_mutex_memory(data);
-	init_philo_number_mutex_memory(data);
 	init_forks(data);
 	init_logs_mutex(data);
 	init_all_full_mutex(data);
 	init_dead_mutex(data);
-	init_full_philos_mutex(data);
-	init_eating_time_mutex(data);
-	init_philo_number_mutex(data);
 }
 
 /* initalizes all data for the data struct */
@@ -110,9 +104,6 @@ void	init_data(t_data *data)
 	data->logs = NULL;
 	data->all_full_mutex = NULL;
 	data->dead_mutex = NULL;
-	data->full_philos_mutex = NULL;
-	data->eating_time_mutex = NULL;
-	data->philo_number_mutex = NULL;
 	set_input(data);
 	init_philos(data, 0);
 	init_mutexes(data);

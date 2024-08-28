@@ -26,7 +26,11 @@ void	all_full(t_data *data)
 			pthread_mutex_unlock(data->philos[i]->p_mutex);
 			data->full_philos += 1;
 			if (data->full_philos == data->num_of_philos)
+			{
+				pthread_mutex_lock(data->all_full_mutex);
 				data->all_full = 1;
+				pthread_mutex_unlock(data->all_full_mutex);
+			}
 		}
 		else
 		{

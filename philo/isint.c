@@ -45,7 +45,6 @@ long long int	ft_atoll(const char *s)
 		res += (long long int)s[i] - 48;
 		i++;
 	}
-	printf("test number: %lld\n", res);
 	return (res);
 }
 
@@ -59,7 +58,6 @@ int	isint(char *str)
 		exit(15);
 	}
 	num = ft_atoll(str);
-	printf("test number: %lld\n", num);
 	if (num <= (long long int)2147483647)
 		return (1);
 	printf("Wrong input - not a valid number!\n");

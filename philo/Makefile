@@ -12,19 +12,16 @@
 
 NAME := philo
 
-SRC := all_full_mutex.c check_status.c clean_data.c dead_check.c \
-		destroy_mutexes.c eating_time_mutex.c ft_atoi.c ft_calloc.c \
-		ft_isdigit.c ft_strncmp.c get_timestamp.c init_data.c \
-		init_mutex_memory.c init_mutexes.c isint.c main.c p_mutex.c \
-		philo_number_mutex.c routine.c set_start_time.c threads.c
+SRC := check_status.c clean_data.c dead_check.c destroy_mutexes.c ft_atoi.c \
+		ft_calloc.c ft_isdigit.c ft_strncmp.c get_timestamp.c init_data.c \
+		init_mutex_memory.c init_mutexes.c isint.c main.c p_mutex.c routine.c \
+		set_start_time.c threads.c
 
 OBJ := $(SRC:%.c=%.o)
 
 CC := cc
 
-CFLAGS := -Wall -Werror -Wextra -g3
-
-#-fsanitize=thread
+CFLAGS := -Wall -Werror -Wextra -g3 -fsanitize=thread
 #-fsanitize=address
 
 LINK_OPTION := -pthread

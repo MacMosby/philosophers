@@ -18,23 +18,21 @@ void	print_log(t_philo *philo, char *s)
 {
 	long int	time_stamp;
 
+	time_stamp = get_timestamp(philo->data);
+	if (ft_strncmp(s, EAT, 9) == 0)
+	{
+		pthread_mutex_lock(philo->p_mutex);
+		philo->eating_time = get_timestamp(philo->data);
+		pthread_mutex_unlock(philo->p_mutex);
+	}
 	pthread_mutex_lock(philo->data->logs);
 	if (check_status(philo->data))
 	{
-		time_stamp = get_timestamp(philo->data);
-		if (ft_strncmp(s, EAT, 9) == 0)
-		{
-			pthread_mutex_lock(philo->data->eating_time_mutex);
-			philo->eating_time = get_timestamp(philo->data);
-			pthread_mutex_unlock(philo->data->eating_time_mutex);
-		}
-		pthread_mutex_lock(philo->data->philo_number_mutex);
+		pthread_mutex_lock(philo->p_mutex);
 		printf("%ld %d %s\n", time_stamp / 1000, philo->number, s);
-		pthread_mutex_unlock(philo->data->philo_number_mutex);
-		pthread_mutex_unlock(philo->data->logs);
+		pthread_mutex_unlock(philo->p_mutex);
 	}
-	else
-		pthread_mutex_unlock(philo->data->logs);
+	pthread_mutex_unlock(philo->data->logs);
 }
 
 /* runs the eating routine by picking up two forks depending on the table
@@ -52,9 +50,9 @@ void	ft_eat(t_philo *philo)
 		usleep(philo->data->time_to_eat * 1000);
 		philo->times_eaten++;
 	}
-	pthread_mutex_unlock(&philo->data->forks[philo->index]);
 	pthread_mutex_unlock(&philo->data->forks
 	[(philo->index + 1) % philo->data->num_of_philos]);
+	pthread_mutex_unlock(&philo->data->forks[philo->index]);
 }
 
 /* runs the sleep routine */
@@ -88,11 +86,9 @@ void	*routine(void *arg)
 			ft_eat(philo);
 			if (philo->times_eaten == philo->data->num_of_must_eats)
 			{
-				pthread_mutex_lock(philo->data->full_philos_mutex);
 				pthread_mutex_lock(philo->p_mutex);
 				philo->full = 1;
 				pthread_mutex_unlock(philo->p_mutex);
-				pthread_mutex_unlock(philo->data->full_philos_mutex);
 			}
 			ft_sleep(philo);
 			ft_think(philo);
