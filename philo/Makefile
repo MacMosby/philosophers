@@ -21,7 +21,8 @@ OBJ := $(SRC:%.c=%.o)
 
 CC := cc
 
-CFLAGS := -Wall -Werror -Wextra -g3 -fsanitize=thread
+CFLAGS := -Wall -Werror -Wextra -g3
+#-fsanitize=thread
 #-fsanitize=address
 
 LINK_OPTION := -pthread
